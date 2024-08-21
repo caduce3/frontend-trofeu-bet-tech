@@ -3,19 +3,20 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet-async"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { toast } from "sonner"
 
 // Define the form schema with email and password fields
 const formSchema = z.object({
@@ -32,8 +33,22 @@ export function SignIn() {
     },
   })
 
-  function onSubmit(values: { email: string; password: string }) {
-    console.log(values)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  async function onSubmit(values: { email: string; password: string }) {
+    setIsSubmitting(true)
+    try {
+      // Simulate API request
+      // Replace this with your actual API request
+      await new Promise((resolve) => setTimeout(resolve, 2000)) // Simulate network delay
+      console.log(values)
+      toast.success("Sucesso! Você será logado.")
+    } catch (error) {
+      toast.error("Credenciais inválidas")
+      console.error(error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -54,9 +69,6 @@ export function SignIn() {
               <FormControl>
                 <Input placeholder="trofeu.bet@gmail.com" {...field} />
               </FormControl>
-              <FormDescription>
-                Enter your email address.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -72,15 +84,14 @@ export function SignIn() {
               <FormControl>
                 <Input type="password" placeholder="********" {...field} />
               </FormControl>
-              <FormDescription>
-                Digite sua senha
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         
-        <Button type="submit" className="w-full">Entrar</Button>
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Entrando..." : "Entrar"}
+        </Button>
       </form>
       <Helmet title="Login"/>
     </Form>
