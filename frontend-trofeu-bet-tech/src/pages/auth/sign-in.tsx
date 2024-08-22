@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
+import { Link } from "react-router-dom"
 
 // Define the form schema with email and password fields
 const formSchema = z.object({
@@ -88,6 +89,8 @@ export function SignIn() {
             </FormItem>
           )}
         />
+        
+        <Link to="/sign-up" className="text-right text-sm text-muted-foreground underline">Ainda não tem uma conta? Clique aqui!</Link>
         
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {isSubmitting ? "Entrando..." : "Entrar"}
