@@ -1,5 +1,5 @@
 import { Separator } from "./ui/separator";
-import { Home } from "lucide-react";
+import { Dices, Home, Users } from "lucide-react";
 import { NavLink } from "./nav-link";
 import { ThemeToggle } from "./theme/theme-toggle";
 import AccountMenu from "./account-menu";
@@ -16,9 +16,13 @@ const Header = () => {
                         <Home className="h-4 w-4"/>
                         Início
                     </NavLink>
-                    <NavLink to="/">
-                        <Home className="h-4 w-4"/>
-                        Início
+                    <NavLink to="/players">
+                        <Dices  className="h-4 w-4"/>
+                        Jogadores
+                    </NavLink>
+                    <NavLink to="/a">
+                        <Users  className="h-4 w-4"/>
+                        Usuários
                     </NavLink>
                 </nav>
 
