@@ -19,22 +19,20 @@ import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Link, useNavigate } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import { registerUser } from "@/api/register-user"
 
+// Define the schema for the sign-up form
 const signUpSchema = z.object({
   name: z.string().min(4, { message: "O nome deve ter pelo menos 4 caracteres." }),
   gender: z.enum(["masculino", "feminino"], { message: "O gênero deve ser 'masculino' ou 'feminino'." }),
   email: z.string().email({ message: "Endereço de e-mail inválido." }),
-  password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres." }),
-  sector: z.enum(["risco", "financeiro", "afiliados", "gerencial", "trafego", "user", "desenvolvimento"], { message: "Setor inválido." })
+  password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres." })
 });
-
 
 type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 export function SignUp() {
-
-  const navigete = useNavigate()
-
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -42,25 +40,33 @@ export function SignUp() {
       gender: undefined,
       email: "",
       password: "",
-      sector: undefined
     },
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigate = useNavigate();
+
+  const { mutateAsync: registerUserFn } = useMutation({
+    mutationFn: registerUser,
+  })
 
   async function onSubmit(values: SignUpFormValues) {
     setIsSubmitting(true)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)) // Simulate network delay
-      console.log(values)
-      toast.success("Sucesso! Uusário criado, entre em contato com o time de desenvolvimento para liberar sua conta.", {
-        action: {
-            label: 'Login',
-            onClick: () => navigete('/sign-in')
-        }
-      })
+      await registerUserFn({ 
+        name: values.name, 
+        email: values.email, 
+        password: values.password,
+        gender: values.gender
+      });
+
+      toast.success("Usuário criado com sucesso! Entre em contato com o time de desenvolvimento para liberar sua conta.")
+      form.reset();
+      navigate(`/sign-in?email=${values.email}`);
+
     } catch (error) {
-      toast.error("Erro as cadastrar usuário.")
+      const errorMessage = error instanceof Error ? error.message : 'Erro inesperado ao cadastrar usuário.';
+      toast.error(errorMessage);
       console.error(error)
     } finally {
       setIsSubmitting(false)
@@ -71,7 +77,7 @@ export function SignUp() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 max-w-[450px] flex flex-col justify-center gap-6 ">
         <div className="max-w-[450px] flex flex-col justify-center gap-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight"> Criar conta</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Criar conta</h1>
             <p className="text-sm text-muted-foreground">Crie sua conta para ter acesso ao painel da trofeu.bet!</p>
         </div>
         
@@ -98,7 +104,7 @@ export function SignUp() {
             <FormItem>
               <FormLabel>Gênero</FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value || ""}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o gênero" />
                   </SelectTrigger>
@@ -143,33 +149,6 @@ export function SignUp() {
           )}
         />
 
-        {/* Sector Field */}
-        <FormField
-          control={form.control}
-          name="sector"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Setor</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o setor" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="risco">RISCO</SelectItem>
-                    <SelectItem value="financeiro">FINANCEIRO</SelectItem>
-                    <SelectItem value="afiliados">AFILIADOS</SelectItem>
-                    <SelectItem value="gerencial">GERENCIAL</SelectItem>
-                    <SelectItem value="trafego">TRÁFEGO</SelectItem>
-                    <SelectItem value="user">USER</SelectItem>
-                    <SelectItem value="desenvolvimento">DESENVOLVIMENTO</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Link to="/sign-in" className="text-right text-sm text-muted-foreground underline">Fazer login!</Link>
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>

@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { signIn } from "@/api/sign-in"
 
@@ -28,10 +28,13 @@ const formSchema = z.object({
 })
 
 export function SignIn() {
+
+  const [ searchParams ] = useSearchParams()
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      email: searchParams.get('email') ?? '',
       password: "",
     },
   })
@@ -51,7 +54,7 @@ export function SignIn() {
       // Armazenar o token no localStorage ou sessionStorage
       localStorage.setItem('authToken', token);
 
-      toast.success("Sucesso! Você será logado.");
+      toast.success("Sucesso! Você está logado.");
       navigate("/");
     } catch (error) {
       toast.error("Credenciais inválidas")
