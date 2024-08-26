@@ -17,7 +17,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import { signIn } from "@/api/sign-in"
 
 // Define the form schema with email and password fields
 const formSchema = z.object({
@@ -35,15 +37,22 @@ export function SignIn() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigate = useNavigate();
+
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn
+  })
 
   async function onSubmit(values: { email: string; password: string }) {
     setIsSubmitting(true)
     try {
-      // Simulate API request
-      // Replace this with your actual API request
-      await new Promise((resolve) => setTimeout(resolve, 2000)) // Simulate network delay
-      console.log(values)
-      toast.success("Sucesso! Você será logado.")
+      
+      const token = await authenticate({ email: values.email, password: values.password });
+      // Armazenar o token no localStorage ou sessionStorage
+      localStorage.setItem('authToken', token);
+
+      toast.success("Sucesso! Você será logado.");
+      navigate("/");
     } catch (error) {
       toast.error("Credenciais inválidas")
       console.error(error)

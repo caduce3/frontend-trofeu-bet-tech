@@ -4,9 +4,17 @@ import { CardTotalRetiradasMonth } from "./card-total-retiradas-month";
 import { CardTotalDepositosYear } from "./card-total-depositos-year";
 import { CardTotalRetiradasYear } from "./card-total-retiradas-year";
 import { GraficoDepositosSaques } from "./grafico-deposito-saque";
+import { useAuthRedirect } from "@/middlewares/authRedirect";
 
 
 export function Dashboard(){
+
+    const token = useAuthRedirect();
+
+    if (!token) {
+        return null;
+    }
+
     return (
         <>
             <Helmet title="Dashboard"/>

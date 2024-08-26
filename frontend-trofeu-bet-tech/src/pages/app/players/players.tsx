@@ -9,9 +9,16 @@ import {
 import PlayersTableRow from "./players-table-row";
 import PlayersTableFilters from "./players-table-filters";
 import { Pagination } from "@/components/pagination";
+import { useAuthRedirect } from "@/middlewares/authRedirect";
   
 
 export function Players() {
+    const token = useAuthRedirect();
+
+    if (!token) {
+        return null;
+    }
+
     return (
         <>
             <Helmet title="Players"/>
