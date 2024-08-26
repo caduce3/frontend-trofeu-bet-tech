@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import PlayersTableRow from "./players-table-row";
 import PlayersTableFilters from "./players-table-filters";
+import { Pagination } from "@/components/pagination";
   
 
 export function Players() {
@@ -38,6 +39,8 @@ export function Players() {
                     })}
                 </TableBody>
             </Table>
+
+            <Pagination pageIndex={0} perPage={10} totalCount={100} />
 
         </>
     )
