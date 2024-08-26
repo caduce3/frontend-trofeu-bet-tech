@@ -3,6 +3,7 @@ import { CardTotalDepositosMonth } from "./card-total-deposito-month";
 import { CardTotalRetiradasMonth } from "./card-total-retiradas-month";
 import { CardTotalDepositosYear } from "./card-total-depositos-year";
 import { CardTotalRetiradasYear } from "./card-total-retiradas-year";
+import { GraficoDepositosSaques } from "./grafico-deposito-saque";
 
 
 export function Dashboard(){
@@ -17,6 +18,10 @@ export function Dashboard(){
                     <CardTotalRetiradasMonth />
                     <CardTotalDepositosYear />
                     <CardTotalRetiradasYear />
+                </div>
+
+                <div className="grid grid-cols-9 gap-4">
+                    <GraficoDepositosSaques />
                 </div>
 
             </div>
