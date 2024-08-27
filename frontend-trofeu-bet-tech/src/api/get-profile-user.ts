@@ -11,7 +11,7 @@ interface User {
     sector: 'USER' | 'DESENVOLVIMENTO' | 'TRAFEGO' | 'FINANCEIRO' | 'AFILIADOS' | 'GERENCIAL' | 'RISCO';
 }
 
-interface GetProfileUserResponse {
+export interface GetProfileUserResponse {
     user: User;
 }
 
@@ -26,10 +26,8 @@ export async function getProfileUser() {
             }
         });
 
-        console.log("Resposta do perfil:", response.data);
         return response.data.user; // Retorna apenas o objeto `user`
     } catch (error) {
-        console.error('Erro ao buscar perfil:', error);
         throw new Error('Failed to fetch user profile');
     }
 }
