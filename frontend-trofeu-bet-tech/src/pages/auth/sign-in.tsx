@@ -57,7 +57,8 @@ export function SignIn() {
       toast.success("Sucesso! Você está logado.");
       navigate("/");
     } catch (error) {
-      toast.error("Credenciais inválidas")
+      const errorMessage = error instanceof Error ? error.message : 'Erro inesperado ao cadastrar usuário.';
+      toast.error(errorMessage);
       console.error(error)
     } finally {
       setIsSubmitting(false)
