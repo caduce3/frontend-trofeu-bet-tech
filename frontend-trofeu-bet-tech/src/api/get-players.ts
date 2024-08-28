@@ -2,6 +2,11 @@ import { api } from "@/lib/axios";
 
 export interface GetPlayersBody {
     page: number;
+    id_platform?: number;
+    name?: string;
+    tell?: string;
+    email?: string;
+    cpf?: string;
 }
 
 export interface GetPlayersResponse {
@@ -21,12 +26,12 @@ export interface GetPlayersResponse {
     }[]
 }
 
-export async function getPlayers({ page }: GetPlayersBody) {
+export async function getPlayers({ page, id_platform, name, email, cpf, tell }: GetPlayersBody) {
     try {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('No token found');
 
-        const response = await api.post<GetPlayersResponse>('/get_players', { page }, {
+        const response = await api.post<GetPlayersResponse>('/get_players', { page, id_platform, name, email, cpf, tell }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

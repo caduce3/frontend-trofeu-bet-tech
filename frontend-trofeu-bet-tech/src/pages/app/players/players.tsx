@@ -25,9 +25,16 @@ export function Players() {
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;
 
+    const id_platform = searchParams.get('id_platform')
+    const name = searchParams.get('name') ?? undefined;
+    const tell = searchParams.get('tell') ?? undefined;
+    const email = searchParams.get('email') ?? undefined;
+    const cpf = searchParams.get('cpf') ?? undefined;
+
+
     const { data } = useQuery({
-        queryKey: ['players', page],
-        queryFn: () => getPlayers({page: Number(page)}),
+        queryKey: ['players', page, id_platform, name, tell, email, cpf],
+        queryFn: () => getPlayers({page: Number(page), id_platform: Number(id_platform), name, tell, email, cpf}),
     });
 
     function handlePaginate(page: number) {
