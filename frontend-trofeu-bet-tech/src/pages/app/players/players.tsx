@@ -10,6 +10,9 @@ import PlayersTableRow from "./players-table-row";
 import PlayersTableFilters from "./players-table-filters";
 import { Pagination } from "@/components/pagination";
 import { useAuthRedirect } from "@/middlewares/authRedirect";
+import { useQuery } from "@tanstack/react-query";
+import { getPlayers } from "@/api/get-players";
+import { useSearchParams } from "react-router-dom";
   
 
 export function Players() {
@@ -17,6 +20,22 @@ export function Players() {
 
     if (!token) {
         return null;
+    }
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const page = searchParams.get('page') ?? 1;
+
+    const { data } = useQuery({
+        queryKey: ['players', page],
+        queryFn: () => getPlayers({page: Number(page)}),
+    });
+
+    function handlePaginate(page: number) {
+        setSearchParams(prev => {
+            prev.set('page', (page).toString());
+
+            return prev
+        })
     }
 
     return (
@@ -39,15 +58,15 @@ export function Players() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {Array.from( { length: 10 }).map( (_, i) => {
-                        return (
-                            <PlayersTableRow  key={i} />
-                        )
+                    {data && data.playersList.map(player => {
+                        return <PlayersTableRow key={player.id} players={player}/>
                     })}
                 </TableBody>
             </Table>
 
-            <Pagination pageIndex={0} perPage={10} totalCount={100} />
+            {data && (
+                <Pagination currentPage={data.currentPage} totalPages={data.totalPages} totalItens={data.totalItens} onPageChange={handlePaginate}/>
+            )}
 
         </>
     )
