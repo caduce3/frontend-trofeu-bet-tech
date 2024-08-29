@@ -28,6 +28,7 @@ export interface GetUniquePlayerResponse {
             id: string;
             id_player: string;
             ftd_value: number;
+            ftd_date: Date;
             qtd_deposits: number;
             total_deposit_amount: number;
             total_withdrawals: number;
