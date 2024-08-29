@@ -1,0 +1,155 @@
+import { Helmet } from "react-helmet-async";
+import { useAuthRedirect } from "@/middlewares/authRedirect";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getUniquePlayer } from "@/api/get-unique-player";
+import { toast } from "sonner";
+import { CardTotalGeral } from "@/components/card-total";
+import { DollarSign, Wallet } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatPhoneNumber } from "@/services/formated-tell"
+import { capitalizeName } from "@/services/formated-captalize-name"
+import { formatCPF } from "@/services/formated-cpf"
+import { InfoRowPlayer } from "./info-row-player";
+import { formatDateToPTBR } from "@/services/formated-date-pt-br";
+
+export function PlayersDetails() {
+    const token = useAuthRedirect();
+
+    if (!token) {
+        return null;
+    }
+
+    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
+
+    const { data, isLoading } = useQuery({
+        queryKey: ['player', id],
+        queryFn: async () => {
+            if (!id) {
+                navigate(`/players`);
+                toast.error(`Jogador não encontrado`);
+                return Promise.reject("ID do jogador não encontrado");
+            }
+            return getUniquePlayer({ id });
+        },
+        enabled: !!id // Executa a consulta somente se id estiver definido
+    });
+    
+    return (
+        <>
+            <Helmet title="Players Details"/>
+
+            <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-8">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Informações gerais do jogador</CardTitle>
+                        <CardDescription>Informações pessoais</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div>
+                            
+                            <div className="grid grid-cols-2 gap-4">
+                                <InfoRowPlayer
+                                    label="Nome"
+                                    value={data?.player.name ?? "Não informado"}
+                                    isLoading={isLoading}
+                                    formatFunction={(name) => capitalizeName(name)}
+                                />
+                                <InfoRowPlayer
+                                    label="CPF"
+                                    value={data?.player.cpf ?? "Não informado"}
+                                    isLoading={isLoading}
+                                    formatFunction={(cpf) => formatCPF(cpf)}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <InfoRowPlayer
+                                    label="Telefone"
+                                    value={data?.player.tell ?? "Não informado"}
+                                    isLoading={isLoading}
+                                    formatFunction={(tell) => formatPhoneNumber(tell)}
+                                />
+                                <InfoRowPlayer
+                                    label="Email"
+                                    value={data?.player.email ?? "Não informado"}
+                                    isLoading={isLoading}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <InfoRowPlayer
+                                    label="ID"
+                                    value={data?.player.id_platform ?? "Não informado"}
+                                    isLoading={isLoading}
+                                />
+                                <InfoRowPlayer
+                                label="Data de registro"
+                                    value={data?.player.platform_regitration_date ?? "Não informado"}
+                                    isLoading={isLoading}
+                                    formatFunction={formatDateToPTBR}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <InfoRowPlayer
+                                    label="FTD value"
+                                    value={data?.player.Wallet?.ftd_value ?? "Não informado"}
+                                    isLoading={isLoading}
+                                />
+                                <InfoRowPlayer
+                                    label="FTD date"
+                                    value={data?.player.Wallet?.ftd_date ?? "Não informado"}
+                                    isLoading={isLoading}
+                                    formatFunction={formatDateToPTBR}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <InfoRowPlayer
+                                    label="Data de nascimento"
+                                    value={data?.player.date_birth ?? "Não informado"}
+                                    isLoading={isLoading}
+                                    formatFunction={formatDateToPTBR}
+                                />
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+                </div>
+                <div className="col-span-4">
+                    <div className="grid grid-cols-1 gap-4">
+                    <CardTotalGeral 
+                        Icon={DollarSign} 
+                        cardTitle="Valor total de depósitos" 
+                        totalValue={Number(data?.player.Wallet?.total_deposit_amount) ?? 0} 
+                        format={true}
+                        isLoading={isLoading}
+                    />
+                    <CardTotalGeral 
+                        Icon={Wallet} 
+                        cardTitle="Quantidade total de depósitos" 
+                        totalValue={Number(data?.player.Wallet?.qtd_deposits) ?? 0} 
+                        isLoading={isLoading}
+                    />
+                    <CardTotalGeral 
+                        Icon={Wallet} 
+                        cardTitle="Valor total de saques" 
+                        totalValue={Number(data?.player.Wallet?.total_withdrawals) ?? 0} 
+                        format={true}
+                        isLoading={isLoading}
+                    />
+                    <CardTotalGeral 
+                        Icon={Wallet} 
+                        cardTitle="Quantidade total de saques" 
+                        totalValue={Number(data?.player.Wallet?.qtd_withdrawals) ?? 0}
+                        isLoading={isLoading} 
+                    />
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
