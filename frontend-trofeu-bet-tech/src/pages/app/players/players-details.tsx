@@ -104,23 +104,22 @@ export function PlayersDetails() {
                                         {(() => {
                                             const defaultDate = new Date("1000-01-01T23:59:59.000Z");
                                             let ftdDate = data?.player.Wallet?.ftd_date;
-
                                             if (!ftdDate) return "Não informado";
-
                                             if (typeof ftdDate === 'string') {
                                                 ftdDate = new Date(ftdDate);
                                             }
-
                                             if (!(ftdDate instanceof Date) || isNaN(ftdDate.getTime())) {
                                                 return "Não informado";
                                             }
-
-                                            return ftdDate.getTime() === defaultDate.getTime() 
-                                                ? "Não informado" 
-                                                : ftdDate.toISOString();
+                                            if (ftdDate.getTime() === defaultDate.getTime()) {
+                                                return "Não informado";
+                                            }
+                                            const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                                            return new Intl.DateTimeFormat('pt-BR', options).format(ftdDate);
                                         })()}
                                     </p>
                                 </div>
+
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
@@ -129,13 +128,9 @@ export function PlayersDetails() {
                                     <p className="text-base font-semibold">
                                         {(() => {
                                             const dateBirth = data?.player.date_birth;
- 
                                             if (!dateBirth) return "Não informado";
-
                                             const dateObj = typeof dateBirth === 'string' ? new Date(dateBirth) : dateBirth;
-
-                                            if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) return "Data inválida";
-
+                                            if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) return "Não informado";
                                             return new Intl.DateTimeFormat('pt-BR').format(dateObj);
                                         })()}
                                     </p>

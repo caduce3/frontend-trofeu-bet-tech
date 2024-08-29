@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { formatPhoneNumber } from "@/services/formated-tell"
+import { capitalizeName } from "@/services/formated-captalize-name"
+import { formatCPF } from "@/services/formated-cpf"
 
 
 export interface PlayersTableRowProps {
@@ -29,10 +32,10 @@ const PlayersTableRow = ({ players }: PlayersTableRowProps) => {
     return ( 
         <TableRow>
             <TableCell className="font-medium text-xs font-mono">{players.id_platform}</TableCell>
-            <TableCell className="font-medium">{players.name}</TableCell>
-            <TableCell>{players.tell}</TableCell>
+            <TableCell className="font-medium">{capitalizeName(players.name)}</TableCell>
+            <TableCell>{formatPhoneNumber(players.tell ?? "Não informado")}</TableCell>
             <TableCell>{players.email}</TableCell>
-            <TableCell>{players.cpf}</TableCell>
+            <TableCell>{formatCPF(players.cpf ?? "Não informado")}</TableCell>
             <TableCell>
                 <Button variant="outline" size="sm" onClick={handleDetailsClick}>
                     <Search className="h-4 w-4"/>
@@ -40,7 +43,7 @@ const PlayersTableRow = ({ players }: PlayersTableRowProps) => {
                 </Button>
             </TableCell>
         </TableRow>
-     );
+    );
 }
  
 export default PlayersTableRow;
