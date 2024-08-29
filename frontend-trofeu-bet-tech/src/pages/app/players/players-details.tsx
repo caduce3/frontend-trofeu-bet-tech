@@ -6,8 +6,11 @@ import { getUniquePlayer } from "@/api/get-unique-player";
 import { toast } from "sonner";
 import { CardTotalGeral } from "@/components/card-total";
 import { DollarSign, Wallet } from "lucide-react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { formatPhoneNumber } from "@/services/formated-tell"
+import { capitalizeName } from "@/services/formated-captalize-name"
+import { formatCPF } from "@/services/formated-cpf"
 
 export function PlayersDetails() {
     const token = useAuthRedirect();
@@ -31,7 +34,7 @@ export function PlayersDetails() {
         },
         enabled: !!id // Executa a consulta somente se id estiver definido
     });
-
+    
     return (
         <>
             <Helmet title="Players Details"/>
@@ -48,18 +51,18 @@ export function PlayersDetails() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Nome</Label>
-                                    <p className="text-base font-semibold">{data?.player.name}</p>
+                                    <p className="text-base font-semibold">{capitalizeName(data?.player.name ?? "Não informado")}</p>
                                 </div>
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">CPF</Label>
-                                    <p className="text-base font-semibold">{data?.player.cpf}</p>
+                                    <p className="text-base font-semibold">{formatCPF(data?.player.cpf ?? "Não informado")}</p>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Telefone</Label>
-                                    <p className="text-base font-semibold">{data?.player.tell}</p>
+                                    <p className="text-base font-semibold">{formatPhoneNumber(data?.player.tell ?? "Não informado")}</p>
                                 </div>
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Email</Label>
