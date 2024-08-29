@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 
 export interface PlayersTableRowProps {
@@ -18,6 +19,13 @@ export interface PlayersTableRowProps {
 }
 
 const PlayersTableRow = ({ players }: PlayersTableRowProps) => {
+
+    const navigate = useNavigate();
+
+    const handleDetailsClick = () => {
+        navigate(`/players/${players.id}`);
+    }
+
     return ( 
         <TableRow>
             <TableCell className="font-medium text-xs font-mono">{players.id_platform}</TableCell>
@@ -26,7 +34,7 @@ const PlayersTableRow = ({ players }: PlayersTableRowProps) => {
             <TableCell>{players.email}</TableCell>
             <TableCell>{players.cpf}</TableCell>
             <TableCell>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" onClick={handleDetailsClick}>
                     <Search className="h-4 w-4"/>
                     <span className="sr-only">Detalhes do jogador</span>
                 </Button>
