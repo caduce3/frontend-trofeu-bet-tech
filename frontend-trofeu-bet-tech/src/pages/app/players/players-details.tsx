@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { formatPhoneNumber } from "@/services/formated-tell"
 import { capitalizeName } from "@/services/formated-captalize-name"
 import { formatCPF } from "@/services/formated-cpf"
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function PlayersDetails() {
     const token = useAuthRedirect();
@@ -22,7 +23,7 @@ export function PlayersDetails() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['player', id],
         queryFn: async () => {
             if (!id) {
@@ -51,34 +52,34 @@ export function PlayersDetails() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Nome</Label>
-                                    <p className="text-base font-semibold">{capitalizeName(data?.player.name ?? "Não informado")}</p>
+                                    <p className="text-base font-semibold">{isLoading ? <Skeleton className="h-4 w-40"/> : capitalizeName(data?.player.name ?? "Não informado")}</p>
                                 </div>
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">CPF</Label>
-                                    <p className="text-base font-semibold">{formatCPF(data?.player.cpf ?? "Não informado")}</p>
+                                    <p className="text-base font-semibold">{isLoading ? <Skeleton className="h-4 w-40"/> : formatCPF(data?.player.cpf ?? "Não informado")}</p>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Telefone</Label>
-                                    <p className="text-base font-semibold">{formatPhoneNumber(data?.player.tell ?? "Não informado")}</p>
+                                    <p className="text-base font-semibold">{isLoading ? <Skeleton className="h-4 w-40"/> : formatPhoneNumber(data?.player.tell ?? "Não informado")}</p>
                                 </div>
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Email</Label>
-                                    <p className="text-base font-semibold">{data?.player.email}</p>
+                                    <p className="text-base font-semibold">{isLoading ? <Skeleton className="h-4 w-40"/> : data?.player.email}</p>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">ID</Label>
-                                    <p className="text-base font-semibold">{data?.player.id_platform}</p>
+                                    <p className="text-base font-semibold">{isLoading ? <Skeleton className="h-4 w-40"/> : data?.player.id_platform}</p>
                                 </div>
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Data de registro</Label>
                                     <p className="text-base font-semibold">
-                                        {(() => {
+                                        {isLoading ? <Skeleton className="h-4 w-40"/> : (() => {
                                             const registrationDate = data?.player.platform_regitration_date;
  
                                             if (!registrationDate) return "Não informado";
@@ -96,12 +97,12 @@ export function PlayersDetails() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">FTD value</Label>
-                                    <p className="text-base font-semibold">{data?.player.Wallet?.ftd_value}</p>
+                                    <p className="text-base font-semibold">{isLoading ? <Skeleton className="h-4 w-40"/> : data?.player.Wallet?.ftd_value}</p>
                                 </div>
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">FTD date</Label>
                                     <p className="text-base font-semibold">
-                                        {(() => {
+                                        {isLoading ? <Skeleton className="h-4 w-40"/> : (() => {
                                             const defaultDate = new Date("1000-01-01T23:59:59.000Z");
                                             let ftdDate = data?.player.Wallet?.ftd_date;
                                             if (!ftdDate) return "Não informado";
@@ -126,7 +127,7 @@ export function PlayersDetails() {
                                 <div className="py-3">
                                     <Label className="text-lg text-muted-foreground">Data de nascimento</Label>
                                     <p className="text-base font-semibold">
-                                        {(() => {
+                                        {isLoading ? <Skeleton className="h-4 w-40"/> : (() => {
                                             const dateBirth = data?.player.date_birth;
                                             if (!dateBirth) return "Não informado";
                                             const dateObj = typeof dateBirth === 'string' ? new Date(dateBirth) : dateBirth;
@@ -147,28 +148,30 @@ export function PlayersDetails() {
                         cardTitle="Valor total de depósitos" 
                         totalValue={Number(data?.player.Wallet?.total_deposit_amount) ?? 0} 
                         format={true}
+                        isLoading={isLoading}
                     />
                     <CardTotalGeral 
                         Icon={Wallet} 
                         cardTitle="Quantidade total de depósitos" 
                         totalValue={Number(data?.player.Wallet?.qtd_deposits) ?? 0} 
+                        isLoading={isLoading}
                     />
                     <CardTotalGeral 
                         Icon={Wallet} 
                         cardTitle="Valor total de saques" 
                         totalValue={Number(data?.player.Wallet?.total_withdrawals) ?? 0} 
                         format={true}
+                        isLoading={isLoading}
                     />
                     <CardTotalGeral 
                         Icon={Wallet} 
                         cardTitle="Quantidade total de saques" 
-                        totalValue={Number(data?.player.Wallet?.qtd_withdrawals) ?? 0} 
+                        totalValue={Number(data?.player.Wallet?.qtd_withdrawals) ?? 0}
+                        isLoading={isLoading} 
                     />
                     </div>
                 </div>
             </div>
-
-
         </>
     )
 }
