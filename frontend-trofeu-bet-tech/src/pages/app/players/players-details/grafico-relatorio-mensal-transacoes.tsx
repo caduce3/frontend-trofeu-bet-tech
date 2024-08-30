@@ -39,7 +39,9 @@ export function ChartWithdrawlDepositMonthPlayer() {
   const depositTotal = data?.result[data.result.length - 1]?.depositTotal || 0;
   const withdrawalsTotal = data?.result[data.result.length - 1]?.withdrawalsTotal || 0;
 
-  const netDepositFormatted = formatCurrency(depositTotal - withdrawalsTotal);
+  
+  const netDepositFormatted = formatCurrency((depositTotal) - (withdrawalsTotal));
+  
   
 
   const chartConfig = {

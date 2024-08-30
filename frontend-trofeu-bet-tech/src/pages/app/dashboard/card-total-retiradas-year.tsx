@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, HandCoins } from "lucide-react";
+import { HandCoins } from "lucide-react";
 
 export function CardTotalRetiradasYear() {
     return (
