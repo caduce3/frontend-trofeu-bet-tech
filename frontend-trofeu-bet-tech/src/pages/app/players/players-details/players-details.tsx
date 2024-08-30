@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUniquePlayer } from "@/api/get-unique-player";
 import { toast } from "sonner";
 import { CardTotalGeral } from "@/components/card-total";
-import { DollarSign, Wallet } from "lucide-react";
+import { DollarSign, TrendingDown, TrendingUp, Wallet, X } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPhoneNumber } from "@/services/formated-tell"
 import { capitalizeName } from "@/services/formated-captalize-name"
@@ -86,7 +86,7 @@ export function PlayersDetails() {
                                     isLoading={isLoading}
                                 />
                                 <InfoRowPlayer
-                                label="Data de registro"
+                                    label="Data de registro"
                                     value={data?.player.platform_regitration_date ?? "Não informado"}
                                     isLoading={isLoading}
                                     formatFunction={formatDateToPTBR}
@@ -129,20 +129,20 @@ export function PlayersDetails() {
                         isLoading={isLoading}
                     />
                     <CardTotalGeral 
-                        Icon={Wallet} 
+                        Icon={TrendingUp} 
                         cardTitle="Quantidade total de depósitos" 
                         totalValue={Number(data?.player.Wallet?.qtd_deposits) ?? 0} 
                         isLoading={isLoading}
                     />
                     <CardTotalGeral 
-                        Icon={Wallet} 
+                        Icon={X} 
                         cardTitle="Valor total de saques" 
                         totalValue={Number(data?.player.Wallet?.total_withdrawals) ?? 0} 
                         format={true}
                         isLoading={isLoading}
                     />
                     <CardTotalGeral 
-                        Icon={Wallet} 
+                        Icon={TrendingDown} 
                         cardTitle="Quantidade total de saques" 
                         totalValue={Number(data?.player.Wallet?.qtd_withdrawals) ?? 0}
                         isLoading={isLoading} 
