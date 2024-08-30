@@ -88,7 +88,7 @@ export function GraficoDepositosSaques() {
                 </div>
             </CardHeader>
             <CardContent>
-                <ResponsiveContainer width="100%" height={240}>
+                <ResponsiveContainer width="100%" height={200}>
                     <LineChart data={data} style={{fontSize: 12}}>
                         <XAxis 
                             dataKey="name"

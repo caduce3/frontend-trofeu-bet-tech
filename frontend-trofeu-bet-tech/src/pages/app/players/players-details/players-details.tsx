@@ -5,13 +5,14 @@ import { useQuery } from "@tanstack/react-query";
 import { getUniquePlayer } from "@/api/get-unique-player";
 import { toast } from "sonner";
 import { CardTotalGeral } from "@/components/card-total";
-import { DollarSign, TrendingDown, TrendingUp, Wallet, X } from "lucide-react";
+import { DollarSign, TrendingDown, TrendingUp, X } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPhoneNumber } from "@/services/formated-tell"
 import { capitalizeName } from "@/services/formated-captalize-name"
 import { formatCPF } from "@/services/formated-cpf"
 import { InfoRowPlayer } from "./info-row-player";
 import { formatDateToPTBR } from "@/services/formated-date-pt-br";
+import { ChartWithdrawlDepositMonthPlayer } from "./grafico-relatorio-mensal-transacoes";
 
 export function PlayersDetails() {
     const token = useAuthRedirect();
@@ -148,6 +149,12 @@ export function PlayersDetails() {
                         isLoading={isLoading} 
                     />
                     </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-8">
+                    <ChartWithdrawlDepositMonthPlayer />
                 </div>
             </div>
         </>

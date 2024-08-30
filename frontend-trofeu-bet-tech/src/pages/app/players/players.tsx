@@ -13,6 +13,7 @@ import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { useQuery } from "@tanstack/react-query";
 import { getPlayers } from "@/api/get-players";
 import { useSearchParams } from "react-router-dom";
+import { Loader2 } from "lucide-react";
   
 
 export function Players() {
@@ -32,7 +33,7 @@ export function Players() {
     const cpf = searchParams.get('cpf') ?? undefined;
 
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['players', page, id_platform, name, tell, email, cpf],
         queryFn: () => getPlayers({page: Number(page), id_platform: Number(id_platform), name, tell, email, cpf}),
     });
@@ -52,25 +53,31 @@ export function Players() {
                 <h1 className="tet-3xl font-bold tracking-tight">Jogadores</h1>
             </div>
             <PlayersTableFilters />
-            <Table className="border rounded-md ">
-                <TableCaption>Lista de Jogadores.</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead >ID</TableHead>
-                        <TableHead>Nome</TableHead>
-                        <TableHead>Telefone</TableHead>
-                        <TableHead>E-mail</TableHead>
-                        <TableHead>CPF</TableHead>
-                        <TableHead>Detalhes</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {data && data.playersList.map(player => {
-                        return <PlayersTableRow key={player.id} players={player}/>
-                    })}
-                </TableBody>
-            </Table>
+            {
+                isLoading ? 
+                <div className="flex h-[240px] w-full items-center justify-center">
+                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground"/>
+                </div> :
+                <Table className="border rounded-md ">
+                    <TableCaption>Lista de Jogadores.</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead >ID</TableHead>
+                            <TableHead>Nome</TableHead>
+                            <TableHead>Telefone</TableHead>
+                            <TableHead>E-mail</TableHead>
+                            <TableHead>CPF</TableHead>
+                            <TableHead>Detalhes</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {data && data.playersList.map(player => {
+                            return <PlayersTableRow key={player.id} players={player}/>
+                        })}
+                    </TableBody>
+                </Table>
 
+            }
             {data && (
                 <Pagination currentPage={data.currentPage} totalPages={data.totalPages} totalItens={data.totalItens} onPageChange={handlePaginate}/>
             )}
