@@ -1,4 +1,4 @@
-import { ChevronDown, LogOut, UserRoundPen } from "lucide-react";
+import { ChartNoAxesCombined, ChevronDown, Dices, LogOut, UserRoundPen } from "lucide-react";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import { UserProfileDialog } from "./user-profile-dialog";
+import { NavLink } from "./nav-link";
 
 const AccountMenu = () => {
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ const AccountMenu = () => {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="flex select-none items-center gap-2">
-                        Trofeu.bet
+                        
                         <ChevronDown className="h-4 w-4"/>
                     </Button>
                 </DropdownMenuTrigger>
@@ -46,6 +47,18 @@ const AccountMenu = () => {
 
                     <DropdownMenuSeparator />
 
+                    <DropdownMenuItem className="cursor-pointer">
+                        <NavLink to="/" className="flex items-center">
+                            <ChartNoAxesCombined className="mr-2 h-4 w-4" />
+                            Dashboard
+                        </NavLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                        <NavLink to="/players" className="flex items-center">
+                            <Dices  className="mr-2 h-4 w-4"/>
+                            Jogadores
+                        </NavLink>
+                    </DropdownMenuItem>
                     <DialogTrigger asChild>
                         <DropdownMenuItem className="cursor-pointer">
                             <UserRoundPen className="mr-2 h-4 w-4"/>
