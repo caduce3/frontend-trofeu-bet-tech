@@ -49,10 +49,10 @@ export function Players() {
     return (
         <>
             <Helmet title="Players"/>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-row gap-4 items-center">
                 <h1 className="tet-3xl font-bold tracking-tight">Jogadores</h1>
+                <PlayersTableFilters />
             </div>
-            <PlayersTableFilters />
             {
                 isLoading ? 
                 <div className="flex h-[240px] w-full items-center justify-center">
@@ -64,9 +64,9 @@ export function Players() {
                         <TableRow>
                             <TableHead >ID</TableHead>
                             <TableHead>Nome</TableHead>
-                            <TableHead>Telefone</TableHead>
-                            <TableHead>E-mail</TableHead>
-                            <TableHead>CPF</TableHead>
+                            <TableHead className="hidden lg:table-cell">Telefone</TableHead>
+                            <TableHead className="hidden md:table-cell">E-mail</TableHead>
+                            <TableHead className="hidden sm:table-cell">CPF</TableHead>
                             <TableHead>Detalhes</TableHead>
                         </TableRow>
                     </TableHeader>

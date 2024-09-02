@@ -33,9 +33,9 @@ const PlayersTableRow = ({ players }: PlayersTableRowProps) => {
         <TableRow>
             <TableCell className="font-medium text-xs font-mono">{players.id_platform}</TableCell>
             <TableCell className="font-medium">{capitalizeName(players.name)}</TableCell>
-            <TableCell>{formatPhoneNumber(players.tell ?? "Não informado")}</TableCell>
-            <TableCell>{players.email}</TableCell>
-            <TableCell>{formatCPF(players.cpf ?? "Não informado")}</TableCell>
+            <TableCell className="hidden lg:table-cell">{formatPhoneNumber(players.tell ?? "Não informado")}</TableCell>
+            <TableCell className="hidden md:table-cell">{players.email}</TableCell>
+            <TableCell className="hidden sm:table-cell">{formatCPF(players.cpf ?? "Não informado")}</TableCell>
             <TableCell>
                 <Button variant="outline" size="sm" onClick={handleDetailsClick}>
                     <Search className="h-4 w-4"/>
