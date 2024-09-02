@@ -41,119 +41,120 @@ export function PlayersDetails() {
         <>
             <Helmet title="Players Details"/>
 
-            <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-8">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Informações gerais do jogador</CardTitle>
-                        <CardDescription>Informações pessoais</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <div>
-                            
-                            <div className="grid grid-cols-2 gap-4">
-                                <InfoRowPlayer
-                                    label="Nome"
-                                    value={data?.player.name ?? "Não informado"}
-                                    isLoading={isLoading}
-                                    formatFunction={(name) => capitalizeName(name)}
-                                />
-                                <InfoRowPlayer
-                                    label="CPF"
-                                    value={data?.player.cpf ?? "Não informado"}
-                                    isLoading={isLoading}
-                                    formatFunction={(cpf) => formatCPF(cpf)}
-                                />
-                            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <div className="md:col-span-8">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Informações gerais do jogador</CardTitle>
+                            <CardDescription>Informações pessoais</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <InfoRowPlayer
+                                        label="Nome"
+                                        value={data?.player.name ?? "Não informado"}
+                                        isLoading={isLoading}
+                                        formatFunction={(name) => capitalizeName(name)}
+                                    />
+                                    <InfoRowPlayer
+                                        label="CPF"
+                                        value={data?.player.cpf ?? "Não informado"}
+                                        isLoading={isLoading}
+                                        formatFunction={(cpf) => formatCPF(cpf)}
+                                    />
+                                </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <InfoRowPlayer
-                                    label="Telefone"
-                                    value={data?.player.tell ?? "Não informado"}
-                                    isLoading={isLoading}
-                                    formatFunction={(tell) => formatPhoneNumber(tell)}
-                                />
-                                <InfoRowPlayer
-                                    label="Email"
-                                    value={data?.player.email ?? "Não informado"}
-                                    isLoading={isLoading}
-                                />
-                            </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <InfoRowPlayer
+                                        label="Telefone"
+                                        value={data?.player.tell ?? "Não informado"}
+                                        isLoading={isLoading}
+                                        formatFunction={(tell) => formatPhoneNumber(tell)}
+                                    />
+                                    <InfoRowPlayer
+                                        label="Email"
+                                        value={data?.player.email ?? "Não informado"}
+                                        isLoading={isLoading}
+                                    />
+                                </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <InfoRowPlayer
-                                    label="ID"
-                                    value={data?.player.id_platform ?? "Não informado"}
-                                    isLoading={isLoading}
-                                />
-                                <InfoRowPlayer
-                                    label="Data de registro"
-                                    value={data?.player.platform_regitration_date ?? "Não informado"}
-                                    isLoading={isLoading}
-                                    formatFunction={formatDateToPTBR}
-                                />
-                            </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <InfoRowPlayer
+                                        label="ID"
+                                        value={data?.player.id_platform ?? "Não informado"}
+                                        isLoading={isLoading}
+                                    />
+                                    <InfoRowPlayer
+                                        label="Data de registro"
+                                        value={data?.player.platform_regitration_date ?? "Não informado"}
+                                        isLoading={isLoading}
+                                        formatFunction={formatDateToPTBR}
+                                    />
+                                </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <InfoRowPlayer
-                                    label="FTD value"
-                                    value={data?.player.Wallet?.ftd_value ?? "Não informado"}
-                                    isLoading={isLoading}
-                                />
-                                <InfoRowPlayer
-                                    label="FTD date"
-                                    value={data?.player.Wallet?.ftd_date ?? "Não informado"}
-                                    isLoading={isLoading}
-                                    formatFunction={formatDateToPTBR}
-                                />
-                            </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <InfoRowPlayer
+                                        label="FTD value"
+                                        value={data?.player.Wallet?.ftd_value ?? "Não informado"}
+                                        isLoading={isLoading}
+                                    />
+                                    <InfoRowPlayer
+                                        label="FTD date"
+                                        value={data?.player.Wallet?.ftd_date ?? "Não informado"}
+                                        isLoading={isLoading}
+                                        formatFunction={formatDateToPTBR}
+                                    />
+                                </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <InfoRowPlayer
-                                    label="Data de nascimento"
-                                    value={data?.player.date_birth ?? "Não informado"}
-                                    isLoading={isLoading}
-                                    formatFunction={formatDateToPTBR}
-                                />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <InfoRowPlayer
+                                        label="Data de nascimento"
+                                        value={data?.player.date_birth ?? "Não informado"}
+                                        isLoading={isLoading}
+                                        formatFunction={formatDateToPTBR}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
                 </div>
-                <div className="col-span-4">
+                <div className="md:col-span-4">
                     <div className="grid grid-cols-1 gap-4">
-                    <CardTotalGeral 
-                        Icon={DollarSign} 
-                        cardTitle="Valor total de depósitos" 
-                        totalValue={Number(data?.player.Wallet?.total_deposit_amount) ?? 0} 
-                        format={true}
-                        isLoading={isLoading}
-                    />
-                    <CardTotalGeral 
-                        Icon={TrendingUp} 
-                        cardTitle="Quantidade total de depósitos" 
-                        totalValue={Number(data?.player.Wallet?.qtd_deposits) ?? 0} 
-                        isLoading={isLoading}
-                    />
-                    <CardTotalGeral 
-                        Icon={X} 
-                        cardTitle="Valor total de saques" 
-                        totalValue={Number(data?.player.Wallet?.total_withdrawals) ?? 0} 
-                        format={true}
-                        isLoading={isLoading}
-                    />
-                    <CardTotalGeral 
-                        Icon={TrendingDown} 
-                        cardTitle="Quantidade total de saques" 
-                        totalValue={Number(data?.player.Wallet?.qtd_withdrawals) ?? 0}
-                        isLoading={isLoading} 
-                    />
+                        <CardTotalGeral 
+                            Icon={DollarSign} 
+                            cardTitle="Valor total de depósitos" 
+                            totalValue={Number(data?.player.Wallet?.total_deposit_amount) ?? 0} 
+                            format={true}
+                            isLoading={isLoading}
+                        />
+                        <CardTotalGeral 
+                            Icon={TrendingUp} 
+                            cardTitle="Quantidade total de depósitos" 
+                            totalValue={Number(data?.player.Wallet?.qtd_deposits) ?? 0} 
+                            isLoading={isLoading}
+                        />
+                        <CardTotalGeral 
+                            Icon={X} 
+                            cardTitle="Valor total de saques" 
+                            totalValue={Number(data?.player.Wallet?.total_withdrawals) ?? 0} 
+                            format={true}
+                            isLoading={isLoading}
+                        />
+                        <CardTotalGeral 
+                            Icon={TrendingDown} 
+                            cardTitle="Quantidade total de saques" 
+                            totalValue={Number(data?.player.Wallet?.qtd_withdrawals) ?? 0}
+                            isLoading={isLoading} 
+                        />
                     </div>
                 </div>
             </div>
 
+
+
             <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-8">
+                <div className="col-span-12">
                     <ChartWithdrawlDepositMonthPlayer />
                 </div>
             </div>
