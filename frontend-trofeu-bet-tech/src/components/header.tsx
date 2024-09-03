@@ -23,7 +23,7 @@ const Header = () => {
                             <Dices className="h-4 w-4"/>
                             Jogadores
                         </NavLink>
-                        <NavLink to="/a">
+                        <NavLink to="/users">
                             <Users className="h-4 w-4"/>
                             Usuários
                         </NavLink>
