@@ -32,7 +32,7 @@ export function Users() {
 
     const { data, isLoading } = useQuery({
         queryKey: ['users', page, name, email],
-        queryFn: () => getUsers({page: Number(page), name, email}),
+        queryFn: () => getUsers({page: Number(page), name, email})
     });
 
     function handlePaginate(page: number) {

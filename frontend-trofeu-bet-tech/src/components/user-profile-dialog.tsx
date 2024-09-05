@@ -22,8 +22,7 @@ export function UserProfileDialog() {
 
     const { data: profileUser } = useQuery({
         queryKey: ['profileUser'],
-        queryFn: getProfileUser,
-        staleTime: Infinity
+        queryFn: getProfileUser
     });
 
     const { register, handleSubmit, formState: {isSubmitting} } = useForm<UserProfileSchema>({

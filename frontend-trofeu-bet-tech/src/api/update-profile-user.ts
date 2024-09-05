@@ -4,14 +4,16 @@ export interface UpdateUserProfileBody {
     id: string;
     name?: string;
     email?: string;
+    status?: "ACTIVE" | "INACTIVE";
+    sector?: "RISCO" | "DESENVOLVIMENTO" | "TRAFEGO" | "FINANCEIRO" | "GERENCIAL" | "USER" | "AFILIADOS";
 }
 
-export async function updateUserProfile({ id, name, email }: UpdateUserProfileBody) {
+export async function updateUserProfile({ id, name, email, status, sector }: UpdateUserProfileBody) {
     try {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('No token found');
 
-        const response = await api.put(`/updateUser`, { id, name, email }, {
+        const response = await api.put(`/updateUser`, { id, name, email, status, sector }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
