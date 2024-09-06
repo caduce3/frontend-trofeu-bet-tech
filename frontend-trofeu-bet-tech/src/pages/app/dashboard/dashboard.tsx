@@ -1,9 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { CardTotalDepositosMonth } from "./card-total-deposito-month";
-import { CardTotalRetiradasMonth } from "./card-total-retiradas-month";
-import { CardTotalDepositosYear } from "./card-total-depositos-year";
-import { CardTotalRetiradasYear } from "./card-total-retiradas-year";
-import { GraficoDepositosSaques } from "./grafico-deposito-saque";
+import {  GraficoLtv } from "./grafico-ltv";
 import { useAuthRedirect } from "@/middlewares/authRedirect";
 
 
@@ -21,15 +17,8 @@ export function Dashboard(){
             <div className="flex flex-col gap-4">
                 <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
 
-                <div className="grid grid-cols-4 gap-4">
-                    <CardTotalDepositosMonth />
-                    <CardTotalRetiradasMonth />
-                    <CardTotalDepositosYear />
-                    <CardTotalRetiradasYear />
-                </div>
-
-                <div className="grid grid-cols-9 gap-4">
-                    <GraficoDepositosSaques />
+                <div className="gap-4">
+                    <GraficoLtv />
                 </div>
 
             </div>
