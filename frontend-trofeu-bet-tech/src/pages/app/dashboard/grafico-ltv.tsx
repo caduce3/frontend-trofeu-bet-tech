@@ -75,14 +75,6 @@ export function GraficoLtv() {
 
   const [activeChart, setActiveChart] = React.useState<keyof typeof chartConfig>("count");
 
-//   const total = React.useMemo(
-//     () => ({
-//       count: chartData.reduce((acc, curr) => acc + curr.count, 0),
-//       percentage: chartData.reduce((acc, curr) => acc + curr.percentage, 0),
-//     }),
-//     [chartData]
-//   );
-
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
@@ -96,9 +88,12 @@ export function GraficoLtv() {
         <div>
             <div className="pt-1 pb-1 pr-0.5">
                 <DatePickerWithRange
-                    className=""
-                    onDateRangeChange={(range) => {
-                        setDateRange(range);
+                    className="w-full"
+                    value={{ from: dateRange.from, to: dateRange.to }}
+                    onChange={(range) => {
+                      if (range?.from && range?.to) {
+                        setDateRange({ from: range.from, to: range.to });
+                      }
                     }}
                 />
             </div>
