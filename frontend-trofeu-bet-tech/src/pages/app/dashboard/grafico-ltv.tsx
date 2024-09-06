@@ -54,7 +54,7 @@ export function GraficoLtv() {
     return {
       month,
       count: stats.count,
-      percentage: stats.percentage,
+      percentage: parseFloat(stats.percentage.toFixed(2)),
       date: `${new Date().getFullYear()}-${monthToNumber[month]}-01`
     };
   });
@@ -132,8 +132,8 @@ export function GraficoLtv() {
               accessibilityLayer
               data={chartData}
               margin={{
-                left: 12,
-                right: 12,
+                left: 25,
+                right: 25,
                 top: 20
               }}
             >
@@ -161,8 +161,7 @@ export function GraficoLtv() {
                 strokeWidth={2}
                 dot={false}
                 >
-                {/* Adiciona o LabelList para exibir os valores */}
-                <LabelList dataKey={activeChart} position="top" />
+                <LabelList dataKey={activeChart} position="top"/>
               </Line>
             </LineChart>
           </ChartContainer>
