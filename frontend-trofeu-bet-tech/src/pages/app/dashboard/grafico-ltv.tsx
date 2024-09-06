@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useQuery } from "@tanstack/react-query";
@@ -65,11 +65,11 @@ export function GraficoLtv() {
     },
     count: {
       label: "Jogador(es)",
-      color: "hsl(var(--chart-1))",
+      color: "#EEDD00",
     },
     percentage: {
       label: "Porcentagem ",
-      color: "hsl(var(--chart-2))",
+      color: "#EEDD00",
     },
   } satisfies ChartConfig;
 
@@ -134,6 +134,7 @@ export function GraficoLtv() {
               margin={{
                 left: 12,
                 right: 12,
+                top: 20
               }}
             >
               <CartesianGrid vertical={false} />
@@ -159,7 +160,10 @@ export function GraficoLtv() {
                 stroke={`var(--color-${activeChart})`}
                 strokeWidth={2}
                 dot={false}
-              />
+                >
+                {/* Adiciona o LabelList para exibir os valores */}
+                <LabelList dataKey={activeChart} position="top" />
+              </Line>
             </LineChart>
           </ChartContainer>
         </CardContent>
