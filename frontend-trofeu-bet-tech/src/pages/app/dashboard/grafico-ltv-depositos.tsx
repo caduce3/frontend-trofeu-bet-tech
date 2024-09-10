@@ -1,13 +1,14 @@
 import * as React from "react";
-import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
+import { CartesianGrid, LabelList, Line, LineChart, XAxis, Tooltip } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartConfig, ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 import { useQuery } from "@tanstack/react-query";
 import { GraficoLtvDepositosBody } from "@/api/charts/dashboard/grafico-ltv-depositos";
 import { Loader2 } from "lucide-react";
 import { DatePickerWithRange } from "@/components/date-ranger-picker";
 import { format } from "date-fns";
 import { formatCurrency } from "@/services/formated-currency-brl";
+import { formatNumber } from "@/services/formated-number";
 
 export const description = "An interactive line chart";
 
@@ -54,8 +55,8 @@ export function GraficoLtvDepositos() {
     const stats = data?.depositAmountPerMonth[month] || { amount: 0, percentage: 0 };
     return {
       month,
-      amount: stats.amount.toFixed(2),      
-      percentage: parseFloat(stats.percentage.toFixed(2)),
+      amount: stats.amount,
+      percentage: stats.percentage,
       date: `${new Date().getFullYear()}-${monthToNumber[month]}-01`
     };
   });
@@ -69,12 +70,17 @@ export function GraficoLtvDepositos() {
       color: "#EEDD00",
     },
     percentage: {
-      label: "Porcentagem ",
+      label: "Porcentagem",
       color: "#EEDD00",
     },
   } satisfies ChartConfig;
 
   const [activeChart, setActiveChart] = React.useState<keyof typeof chartConfig>("amount");
+
+  // Função para formatar números
+  const formatTooltipValue = (value: number) => {
+    return [formatNumber(value), ''];
+  };
 
   return (
     <Card>
@@ -147,13 +153,9 @@ export function GraficoLtvDepositos() {
                 minTickGap={32}
                 tickFormatter={(value) => value}
               />
-              <ChartTooltip
-                content={
-                  <ChartTooltipContent
-                    className="w-[150px]"
-                    nameKey={activeChart}
-                  />
-                }
+              <Tooltip
+                content={<ChartTooltipContent className="w-[150px]" nameKey={activeChart} />}
+                formatter={formatTooltipValue}
               />
               <Line
                 dataKey={activeChart}
@@ -162,7 +164,11 @@ export function GraficoLtvDepositos() {
                 strokeWidth={2}
                 dot={false}
                 >
-                <LabelList dataKey={activeChart} position="top"/>
+                <LabelList 
+                  dataKey={activeChart} 
+                  position="top" 
+                  formatter={formatTooltipValue}
+                />
               </Line>
             </LineChart>
           </ChartContainer>
