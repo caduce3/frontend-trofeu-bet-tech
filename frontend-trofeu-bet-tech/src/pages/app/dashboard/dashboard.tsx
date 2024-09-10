@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
-import {  GraficoLtv } from "./grafico-ltv";
+import {  GraficoLtv } from "./grafico-ltv-jogadores";
 import { useAuthRedirect } from "@/middlewares/authRedirect";
+import { GraficoLtvDepositos } from "./grafico-ltv-depositos";
 
 
 export function Dashboard(){
@@ -19,6 +20,9 @@ export function Dashboard(){
 
                 <div className="gap-4">
                     <GraficoLtv />
+                </div>
+                <div className="gap-4">
+                    <GraficoLtvDepositos />
                 </div>
 
             </div>

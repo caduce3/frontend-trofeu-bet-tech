@@ -3,14 +3,15 @@ import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useQuery } from "@tanstack/react-query";
-import { GraficoLtvBody } from "@/api/charts/dashboard/grafico-ltv";
+import { GraficoLtvDepositosBody } from "@/api/charts/dashboard/grafico-ltv-depositos";
 import { Loader2 } from "lucide-react";
 import { DatePickerWithRange } from "@/components/date-ranger-picker";
 import { format } from "date-fns";
+import { formatCurrency } from "@/services/formated-currency-brl";
 
 export const description = "An interactive line chart";
 
-export function GraficoLtv() {
+export function GraficoLtvDepositos() {
   const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
     from: new Date(2024, 0, 1),
     to: new Date(2024, 0, 31),
@@ -40,20 +41,20 @@ export function GraficoLtv() {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["grafico-ltv", date_init, date_finish],
+    queryKey: ["grafico-ltv-depositos", date_init, date_finish],
     queryFn: async () => {
-      return await GraficoLtvBody({ date_init, date_finish });
+      return await GraficoLtvDepositosBody({ date_init, date_finish });
     },
     enabled: !!date_init && !!date_finish,
   });
 
-  const totalPlayers = data?.totalCount || 0;
+  const totalAmount = data?.totalAmount || 0;
 
   const chartData = months.map(month => {
-    const stats = data?.depositCountsPerMonth[month] || { count: 0, percentage: 0 };
+    const stats = data?.depositAmountPerMonth[month] || { amount: 0, percentage: 0 };
     return {
       month,
-      count: stats.count,
+      amount: stats.amount,
       percentage: parseFloat(stats.percentage.toFixed(2)),
       date: `${new Date().getFullYear()}-${monthToNumber[month]}-01`
     };
@@ -63,8 +64,8 @@ export function GraficoLtv() {
     views: {
       label: "Total",
     },
-    count: {
-      label: "Jogador(es)",
+    amount: {
+      label: "Valor",
       color: "#EEDD00",
     },
     percentage: {
@@ -73,15 +74,15 @@ export function GraficoLtv() {
     },
   } satisfies ChartConfig;
 
-  const [activeChart, setActiveChart] = React.useState<keyof typeof chartConfig>("count");
+  const [activeChart, setActiveChart] = React.useState<keyof typeof chartConfig>("amount");
 
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Gráfico LTV</CardTitle>
+          <CardTitle>Gráfico LTV Depósitos</CardTitle>
           <CardDescription>
-            Temos <span className="">{totalPlayers} Jogadores</span> entre {date_init} e {date_finish}
+            Valor total de depósito entre {date_init} e {date_finish} é de: <span className="text-xl">{formatCurrency(totalAmount)}</span>
           </CardDescription>
         </div>
 
@@ -98,7 +99,7 @@ export function GraficoLtv() {
                 />
             </div>
             <div className="flex">
-              {["count", "percentage"].map((key) => {
+              {["amount", "percentage"].map((key) => {
                   const chart = key as keyof typeof chartConfig;
                   return (
                   <button
