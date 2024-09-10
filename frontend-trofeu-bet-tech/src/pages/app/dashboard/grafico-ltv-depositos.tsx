@@ -54,7 +54,7 @@ export function GraficoLtvDepositos() {
     const stats = data?.depositAmountPerMonth[month] || { amount: 0, percentage: 0 };
     return {
       month,
-      amount: stats.amount,
+      amount: stats.amount.toFixed(2),      
       percentage: parseFloat(stats.percentage.toFixed(2)),
       date: `${new Date().getFullYear()}-${monthToNumber[month]}-01`
     };
