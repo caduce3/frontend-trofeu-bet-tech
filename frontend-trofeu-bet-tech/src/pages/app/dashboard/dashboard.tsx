@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import {  GraficoLtv } from "./grafico-ltv-jogadores";
 import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { GraficoLtvDepositos } from "./grafico-ltv-depositos";
+import { GraficoTicketMedio } from "./grafico-ticket-medio";
 
 
 export function Dashboard(){
@@ -23,6 +24,9 @@ export function Dashboard(){
                 </div>
                 <div className="gap-4">
                     <GraficoLtvDepositos />
+                </div>
+                <div className="gap-4">
+                    <GraficoTicketMedio />
                 </div>
 
             </div>
