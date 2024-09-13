@@ -76,7 +76,7 @@ export function GraficoLtv() {
   const [activeChart, setActiveChart] = React.useState<keyof typeof chartConfig>("count");
 
   return (
-    <Card>
+    <Card className="rounded-xl">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <CardTitle>Gráfico LTV Jogadores</CardTitle>
@@ -104,7 +104,7 @@ export function GraficoLtv() {
                   <button
                     key={chart}
                     data-active={activeChart === chart}
-                    className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+                    className="rounded-xl mb-1 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
                     onClick={() => setActiveChart(chart)}
                   >
                     <span className="text-xs text-muted-foreground">
