@@ -47,15 +47,15 @@ export function ChartWithdrawlDepositMonthPlayer() {
   const chartConfig = {
     deposit: {
       label: "Deposito",
-      color: "hsl(var(--chart-2))",
+      color: "#2EB88A",
     },
     withdrawals: {
       label: "Saque",
-      color: "hsl(var(--chart-5))",
+      color: "#E23670",
     },
     netDeposit: {
       label: "Net Deposit",
-      color: "hsl(var(--chart-3))",
+      color: "#E88C30",
     }
   } satisfies ChartConfig
 
@@ -67,15 +67,15 @@ export function ChartWithdrawlDepositMonthPlayer() {
           <CardDescription className="pt-2">Janeiro - Dezembro {queryAno}</CardDescription>
           <div className="flex gap-2 pt-2">
             <div className="flex items-center">
-              <div className="w-4 h-4" style={{ backgroundColor: 'hsl(var(--chart-2))', borderRadius: '50%' }}></div>
+              <div className="w-4 h-4" style={{ backgroundColor: '#2EB88A', borderRadius: '50%' }}></div>
               <span className="ml-2">Depósito</span>
             </div>
             <div className="flex items-center">
-              <div className="w-4 h-4" style={{ backgroundColor: 'hsl(var(--chart-5))', borderRadius: '50%' }}></div>
+              <div className="w-4 h-4" style={{ backgroundColor: '#E23670', borderRadius: '50%' }}></div>
               <span className="ml-2">Saque</span>
             </div>
             <div className="flex items-center">
-              <div className="w-4 h-4" style={{ backgroundColor: 'hsl(var(--chart-3))', borderRadius: '50%' }}></div>
+              <div className="w-4 h-4" style={{ backgroundColor: '#E88C30', borderRadius: '50%' }}></div>
               <span className="ml-2">Net Deposit</span>
             </div>
           </div>
