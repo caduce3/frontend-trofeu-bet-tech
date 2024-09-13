@@ -29,13 +29,14 @@ export function GraficoTicketMedio() {
 
   // Preparação dos dados para o gráfico
   const chartData = months.map(month => {
-    const monthKey = `${month.toLowerCase()} de ${ano}`;
+    const monthKey = month.toLowerCase(); 
     const stats = data?.averageTicket[monthKey] || { qtd_jogadores: 0, totalAmount: 0, average: 0 };
     return {
       month,
-      average: parseFloat(stats.average.toFixed(2)),
+      average: parseFloat(stats.average.toFixed(2)),  // Garante que o valor do "average" seja tratado corretamente
     };
   });
+
 
   // Configuração do gráfico
   const chartConfig: ChartConfig = {
@@ -82,6 +83,7 @@ export function GraficoTicketMedio() {
                 minTickGap={32}
                 tickFormatter={(value) => value}
               />
+
               <ChartTooltip
                 content={
                   <ChartTooltipContent
