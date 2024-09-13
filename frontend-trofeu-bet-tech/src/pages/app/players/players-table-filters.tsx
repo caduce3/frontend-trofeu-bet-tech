@@ -77,7 +77,7 @@ const PlayersTableFilters = () => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="flex items-center" onClick={() => setIsOpen(true)}>
+                <Button variant="outline" size="sm" className="flex items-center bg-[#18181B] rounded-lg" onClick={() => setIsOpen(true)}>
                     <span className="text-sm font-semibold mr-2">Filtros</span>
                     <Filter className="h-4 w-4" />
                 </Button>

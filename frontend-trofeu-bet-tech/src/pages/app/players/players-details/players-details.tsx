@@ -7,9 +7,9 @@ import { toast } from "sonner";
 import { CardTotalGeral } from "@/components/card-total";
 import { DollarSign, TrendingDown, TrendingUp, X } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatPhoneNumber } from "@/services/formated-tell"
-import { capitalizeName } from "@/services/formated-captalize-name"
-import { formatCPF } from "@/services/formated-cpf"
+import { formatPhoneNumber } from "@/services/formated-tell";
+import { capitalizeName } from "@/services/formated-captalize-name";
+import { formatCPF } from "@/services/formated-cpf";
 import { InfoRowPlayer } from "./info-row-player";
 import { formatDateToPTBR } from "@/services/formated-date-pt-br";
 import { ChartWithdrawlDepositMonthPlayer } from "./grafico-relatorio-mensal-transacoes";
@@ -41,9 +41,9 @@ export function PlayersDetails() {
         <>
             <Helmet title="Players Details"/>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-                <div className="md:col-span-8">
-                    <Card>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-screen"> {/* Set height to full screen */}
+                <div className="md:col-span-8 bg-[#18181B] rounded-xl flex flex-col"> {/* Added flex and full height */}
+                    <Card className="flex-1 rounded-xl"> {/* Added flex-1 to make it take available space */}
                         <CardHeader>
                             <CardTitle>Informações gerais do jogador</CardTitle>
                             <CardDescription>Informações pessoais</CardDescription>
@@ -119,8 +119,8 @@ export function PlayersDetails() {
                         </CardContent>
                     </Card>
                 </div>
-                <div className="md:col-span-4">
-                    <div className="grid grid-cols-1 gap-4">
+                <div className="md:col-span-4 flex flex-col"> {/* Added flex and full height */}
+                    <div className="grid grid-cols-1 gap-4 flex-1"> {/* Added flex-1 to make it take available space */}
                         <CardTotalGeral 
                             Icon={DollarSign} 
                             cardTitle="Valor total de depósitos" 
@@ -151,13 +151,11 @@ export function PlayersDetails() {
                 </div>
             </div>
 
-
-
             <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12">
                     <ChartWithdrawlDepositMonthPlayer />
                 </div>
             </div>
         </>
-    )
+    );
 }

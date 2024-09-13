@@ -53,7 +53,7 @@ export function Users() {
             {
                 isLoading ? <PlayersTableSkeleton /> 
                 :
-                <Table className="border rounded-md ">
+                <Table className=" bg-[#18181B] rounded-xl ">
                     <TableCaption>Lista de Usuários.</TableCaption>
                     <TableHeader>
                         <TableRow>

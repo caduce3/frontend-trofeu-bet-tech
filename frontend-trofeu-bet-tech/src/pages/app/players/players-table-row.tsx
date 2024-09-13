@@ -30,7 +30,7 @@ const PlayersTableRow = ({ players }: PlayersTableRowProps) => {
     }
 
     return ( 
-        <TableRow>
+        <TableRow className="bg-[#18181B] rounded-xl">
             <TableCell className="font-medium text-xs font-mono">{players.id_platform}</TableCell>
             <TableCell className="font-medium">{capitalizeName(players.name)}</TableCell>
             <TableCell className="hidden lg:table-cell">{formatPhoneNumber(players.tell ?? "Não informado")}</TableCell>

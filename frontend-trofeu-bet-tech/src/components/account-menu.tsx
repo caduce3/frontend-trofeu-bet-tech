@@ -33,12 +33,12 @@ const AccountMenu = () => {
         <Dialog>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="flex select-none items-center gap-2">
+                    <Button variant="outline" className="flex select-none items-center gap-2 bg-[#18181B] rounded-xl">
                         
                         <ChevronDown className="h-4 w-4"/>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-56 bg-[#18181B] rounded-xl">
                     
                     <DropdownMenuLabel className="flex flex-col">
                         <span>{isLoadingProfile ? <Skeleton className="h-4 w-40"/> : profileUser?.name }</span>

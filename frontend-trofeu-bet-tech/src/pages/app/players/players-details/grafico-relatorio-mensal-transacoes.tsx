@@ -60,7 +60,7 @@ export function ChartWithdrawlDepositMonthPlayer() {
   } satisfies ChartConfig
 
   return (
-    <Card >
+    <Card className="rounded-xl">
       <CardHeader className="flex flex-row">
         <div>
           <CardTitle>Relatório Mensal de Transações</CardTitle>

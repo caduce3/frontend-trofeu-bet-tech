@@ -6,7 +6,7 @@ import logo from "../assets/logoTrofeu.svg";
 
 const Header = () => {
     return (
-        <div className="border-b">
+        <div className="border-b bg-[#18181B]">
             <div className="flex h-16 items-center gap-6 px-6 justify-between">
                 <div className="flex justify-center w-full sm:w-auto">
                     <img src={logo} alt="Trofeu.bet" className="h-6"/>
