@@ -16,19 +16,21 @@ export function Dashboard(){
     return (
         <>
             <Helmet title="Dashboard"/>
-            <div className="flex flex-col gap-4">
-                <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+            <div className="grid grid-cols-12 gap-4">
+                {/* Título */}
+                <div className="col-span-12">
+                    <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+                </div>
 
-                <div className="gap-4">
+                <div className="col-span-12">
                     <GraficoLtv />
                 </div>
-                <div className="gap-4">
+                <div className="col-span-12">
                     <GraficoLtvDepositos />
                 </div>
-                <div className="gap-4">
+                <div className="col-span-12">
                     <GraficoTicketMedio />
                 </div>
-
             </div>
         </>
     )

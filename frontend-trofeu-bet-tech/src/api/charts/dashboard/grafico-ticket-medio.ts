@@ -5,7 +5,7 @@ export interface GraficoTicketMedioBody {
 }
 
 export interface GraficoTicketMedioResponse {
-    averageTicket: { [key: string]: { qtd_jogadores: number, totalAmount: number, average: number } };
+    averageTicket: { [key: string]: { qtd_jogadores: number, totalAmount: number, average: number, twentyPercentAverage: number } };
 }
 
 export async function GraficoTicketMedioBody({ ano }: GraficoTicketMedioBody) {

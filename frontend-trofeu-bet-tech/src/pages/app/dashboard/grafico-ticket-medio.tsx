@@ -1,4 +1,3 @@
-import * as React from "react";
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -30,24 +29,25 @@ export function GraficoTicketMedio() {
   // Preparação dos dados para o gráfico
   const chartData = months.map(month => {
     const monthKey = month.toLowerCase(); 
-    const stats = data?.averageTicket[monthKey] || { qtd_jogadores: 0, totalAmount: 0, average: 0 };
+    const stats = data?.averageTicket[monthKey] || { qtd_jogadores: 0, totalAmount: 0, average: 0, twentyPercentAverage: 0 };
     return {
       month,
       average: parseFloat(stats.average.toFixed(2)),  // Garante que o valor do "average" seja tratado corretamente
+      twentyPercentAverage: parseFloat(stats.twentyPercentAverage.toFixed(2))
     };
   });
-
 
   // Configuração do gráfico
   const chartConfig: ChartConfig = {
     average: {
       label: "Ticket Médio",
-      color: "#EEDD00",
+      color: "#EEDD00", 
     },
+    twentyPercentAverage: {
+      label: "20% do Ticket Médio",
+      color: "#2563EB", 
+    }
   };
-
-  // Estado para o tipo de gráfico ativo
-  const [activeChart] = React.useState<keyof typeof chartConfig>("average");
 
   return (
     <Card>
@@ -75,31 +75,44 @@ export function GraficoTicketMedio() {
               }}
             >
               <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                minTickGap={32}
-                tickFormatter={(value) => value}
-              />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  minTickGap={32}
+                  tickFormatter={(value) => value}
+                />
 
-              <ChartTooltip
-                content={
-                  <ChartTooltipContent
-                    className="w-[150px]"
-                    nameKey={activeChart}
-                  />
-                }
-              />
-              <Line
-                dataKey={activeChart}
-                type="monotone"
-                stroke={chartConfig[activeChart].color}
-                strokeWidth={2}
-                dot={false}
-              >
-                <LabelList dataKey={activeChart} position="top"/>
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      className="w-[150px]"
+                      nameKey={""} // Padrão para exibir o valor de "average"
+                    />
+                  }
+                />
+
+                {/* Linha para o Ticket Médio */}
+                <Line
+                  dataKey="average"
+                  type="monotone"
+                  stroke={chartConfig["average"].color}
+                  strokeWidth={2}
+                  dot={false}
+                >
+                  <LabelList dataKey="average" position="top" />
+                </Line>
+
+                {/* Linha para 20% da Média */}
+                <Line
+                  dataKey="twentyPercentAverage"
+                  type="monotone"
+                  stroke={chartConfig["twentyPercentAverage"].color}
+                  strokeWidth={2}
+                  dot={false}
+                >
+                <LabelList dataKey="twentyPercentAverage" position="top" />
               </Line>
             </LineChart>
           </ChartContainer>
