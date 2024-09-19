@@ -1,4 +1,4 @@
-import { ChartNoAxesCombined, ChevronDown, Dices, LogOut, UserRoundPen, Users } from "lucide-react";
+import { ChartNoAxesCombined, ChevronDown, Dices, LogOut, Rocket, UserRoundPen, Users } from "lucide-react";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
@@ -63,6 +63,12 @@ const AccountMenu = () => {
                         <NavLink to="/users" className="flex items-center">
                             <Users  className="mr-2 h-4 w-4"/>
                             Usuários
+                        </NavLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                        <NavLink to="/trafego" className="flex items-center">
+                            <Rocket  className="mr-2 h-4 w-4"/>
+                            Tráfego
                         </NavLink>
                     </DropdownMenuItem>
                     <DialogTrigger asChild>

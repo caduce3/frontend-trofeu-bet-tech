@@ -1,5 +1,5 @@
 import { Separator } from "./ui/separator";
-import { ChartNoAxesCombined, Dices, Users } from "lucide-react";
+import { ChartNoAxesCombined, Dices, Rocket, Users } from "lucide-react";
 import { NavLink } from "./nav-link";
 import AccountMenu from "./account-menu";
 import logo from "../assets/logoTrofeu.svg";
@@ -26,6 +26,10 @@ const Header = () => {
                         <NavLink to="/users">
                             <Users className="h-4 w-4"/>
                             Usuários
+                        </NavLink>
+                        <NavLink to="/trafego">
+                            <Rocket className="h-4 w-4"/>
+                            Tráfego
                         </NavLink>
                     </nav>
                 </div>

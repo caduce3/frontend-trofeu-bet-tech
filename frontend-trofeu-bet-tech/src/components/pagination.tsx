@@ -12,6 +12,8 @@ export function Pagination({ currentPage, totalPages, totalItens, onPageChange }
 
     //const pages = Math.ceil(perPage / totalCount) || 1;
 
+    console.log(currentPage, totalPages, totalItens)
+
     return (
         <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">

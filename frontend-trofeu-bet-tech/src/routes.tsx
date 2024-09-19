@@ -8,6 +8,7 @@ import { Players } from './pages/app/players/players'
 import { NotFound } from './pages/404'
 import { PlayersDetails } from './pages/app/players/players-details/players-details'
 import { Users } from './pages/app/users/users'
+import { RelatorioTrafego } from './pages/app/trafego/trafego'
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
             {path: '/players', element: <Players />},
             {path: 'players/:id', element: <PlayersDetails />},
             {path: '/users', element: <Users />},
+            {path: '/trafego', element: <RelatorioTrafego />},
         ]
     },
     {
