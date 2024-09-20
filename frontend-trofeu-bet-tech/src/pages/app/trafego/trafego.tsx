@@ -15,6 +15,7 @@ import { Pagination } from "@/components/pagination";
 import { TrafegoTableSkeleton } from "./trafego-table-skeleton";
 import { verifyAccessByJwt } from "@/services/verify-access-page-by-jwt";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 export function RelatorioTrafego() {
     const token = useAuthRedirect();
@@ -22,8 +23,9 @@ export function RelatorioTrafego() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (verifyAccessByJwt(token ?? '') === false) {
+        if (verifyAccessByJwt(token ?? '', ["GERENCIAL", "DESENVOLVIMENTO", "TRAFEGO"]) === false) {
             navigate("/");
+            toast.error("Você não tem permissão para acessar essa página");
         }
     }, [token, navigate]); 
 

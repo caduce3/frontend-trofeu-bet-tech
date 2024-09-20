@@ -5,16 +5,17 @@ interface MyTokenPayload {
     sector: string;
 }
 
-export const verifyAccessByJwt = (token: string) => {
+type AllowedSectors = "DESENVOLVIMENTO" | "GERENCIAL" | "TRAFEGO" | "RISCO" | "FINANCEIRO" | "AFILIADOS" | "USER";
+
+export const verifyAccessByJwt = (token: string, allowedSectors: AllowedSectors[]) => {
 
     if (!token || token == '') {
         return null;
     }
 
     const decodToken = jwtDecode<MyTokenPayload>(token);
-    const allowedSectors = ['TRAFEGO', 'GERENCIAL', 'DESENVOLVIMENTO'];
 
-    if (!allowedSectors.includes(decodToken.sector)) {
+    if (!allowedSectors.includes(decodToken.sector as AllowedSectors)) {
         return false;
     }
 
