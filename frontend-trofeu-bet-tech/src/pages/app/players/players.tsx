@@ -12,16 +12,22 @@ import { Pagination } from "@/components/pagination";
 import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { useQuery } from "@tanstack/react-query";
 import { getPlayers } from "@/api/get-players";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PlayersTableSkeleton } from "./players-table-skeleton";
+import { useEffect } from "react";
+import { verifyAccessByJwt } from "@/services/verify-access-page-by-jwt";
+import { toast } from "sonner";
   
 
 export function Players() {
     const token = useAuthRedirect();
-
-    if (!token) {
-        return null;
-    }
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (verifyAccessByJwt(token ?? '', ["GERENCIAL", "DESENVOLVIMENTO", "TRAFEGO"]) === false) {
+            navigate("/");
+            toast.error("Você não tem permissão para acessar essa página");
+        }
+    }, [token, navigate]); 
 
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;

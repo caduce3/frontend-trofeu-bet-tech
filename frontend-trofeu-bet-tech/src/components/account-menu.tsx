@@ -34,7 +34,6 @@ const AccountMenu = () => {
 
     const canViewAllItems = sector === 'DESENVOLVIMENTO' || sector === 'GERENCIAL';
     const canViewOnlyTrafego = sector === 'TRAFEGO';
-    // const cannotViewAnything = ['RISCO', 'FINANCEIRO', 'AFILIADOS', 'USER'].includes(sector ?? '');
 
     return (
         <Dialog>
@@ -71,6 +70,12 @@ const AccountMenu = () => {
                                 <NavLink to="/users" className="flex items-center">
                                     <Users className="mr-2 h-4 w-4"/>
                                     Usuários
+                                </NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
+                                <NavLink to="/trafego" className="flex items-center">
+                                    <Rocket className="mr-2 h-4 w-4"/>
+                                    Tráfego
                                 </NavLink>
                             </DropdownMenuItem>
                         </>

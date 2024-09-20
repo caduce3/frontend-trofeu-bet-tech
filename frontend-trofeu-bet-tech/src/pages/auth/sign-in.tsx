@@ -21,6 +21,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { signIn } from "@/api/sign-in"
 import { signInBySector } from "@/services/sign-in-by-sector"
+import logo from "../../assets/logoTrofeu.svg";
 
 // Define the form schema with email and password fields
 const formSchema = z.object({
@@ -72,9 +73,12 @@ export function SignIn() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 max-w-[450px] flex flex-col justify-center gap-6 ">
         {/* Email Field */}
+        <div className="flex justify-center w-full sm:w-auto">
+            <img src={logo} alt="Trofeu.bet" className="h-10"/>
+        </div>
         <div className="max-w-[450px] flex flex-col justify-center gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight"> Acessar painel</h1>
-            <p className="text-sm text-muted-foreground">Acompanhe os jogadores através do painel da trofeu.bet!</p>
+            <p className="text-sm text-muted-foreground">Acompanhe os dados através do painel da trofeu.bet!</p>
         </div>
         
         <FormField
