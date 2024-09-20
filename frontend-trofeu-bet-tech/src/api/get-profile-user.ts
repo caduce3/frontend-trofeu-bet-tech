@@ -5,7 +5,6 @@ interface User {
     name: string;
     gender: string;
     email: string;
-    password: string;
     status: 'ACTIVE' | 'INACTIVE';
     date_created: Date;
     sector: 'USER' | 'DESENVOLVIMENTO' | 'TRAFEGO' | 'FINANCEIRO' | 'AFILIADOS' | 'GERENCIAL' | 'RISCO';
