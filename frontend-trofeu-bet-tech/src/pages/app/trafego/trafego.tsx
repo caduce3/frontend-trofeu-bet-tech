@@ -9,18 +9,23 @@ import {
 import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { useQuery } from "@tanstack/react-query";
 import { getRelatorioFtds } from "@/api/trafego/get-relatorio-ftds";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import RelatorioTrafegoFtdsTableRow from "./trafego-table-row";
 import { Pagination } from "@/components/pagination";
 import { TrafegoTableSkeleton } from "./trafego-table-skeleton";
-  
+import { verifyAccessByJwt } from "@/services/verify-access-page-by-jwt";
+import { useEffect } from "react";
 
 export function RelatorioTrafego() {
     const token = useAuthRedirect();
 
-    if (!token) {
-        return null;
-    }
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (verifyAccessByJwt(token ?? '') === false) {
+            navigate("/");
+        }
+    }, [token, navigate]); 
 
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;
