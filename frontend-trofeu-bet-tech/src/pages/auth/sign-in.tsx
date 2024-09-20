@@ -20,6 +20,7 @@ import { toast } from "sonner"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { signIn } from "@/api/sign-in"
+import { signInBySector } from "@/services/sign-in-by-sector"
 
 // Define the form schema with email and password fields
 const formSchema = z.object({
@@ -53,13 +54,15 @@ export function SignIn() {
       const token = await authenticate({ email: values.email, password: values.password });
       // Armazenar o token no localStorage ou sessionStorage
       localStorage.setItem('authToken', token);
-
+      const redirectURL = signInBySector(token);
       toast.success("Sucesso! Você está logado.");
-      navigate("/");
+
+      if (typeof redirectURL === 'string') {
+        navigate(redirectURL);
+      }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Erro inesperado ao cadastrar usuário.';
-      toast.error(errorMessage);
-      console.error(error)
+        const errorMessage = error instanceof Error ? error.message : 'Erro inesperado ao cadastrar usuário.';
+        toast.error(errorMessage);
     } finally {
       setIsSubmitting(false)
     }

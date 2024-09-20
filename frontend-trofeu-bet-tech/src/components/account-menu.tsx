@@ -26,20 +26,25 @@ const AccountMenu = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('authToken');  // Remove o token do armazenamento local
-        navigate('/sign-in');  // Redireciona para a página inicial
+        navigate('/sign-in');  // Redireciona para a página de login
     };
 
-    return ( 
+    // Lógica de visibilidade com base no setor do usuário
+    const sector = profileUser?.sector;
+
+    const canViewAllItems = sector === 'DESENVOLVIMENTO' || sector === 'GERENCIAL';
+    const canViewOnlyTrafego = sector === 'TRAFEGO';
+    // const cannotViewAnything = ['RISCO', 'FINANCEIRO', 'AFILIADOS', 'USER'].includes(sector ?? '');
+
+    return (
         <Dialog>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="flex select-none items-center gap-2 bg-[#18181B] rounded-xl">
-                        
                         <ChevronDown className="h-4 w-4"/>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-[#18181B] rounded-xl">
-                    
                     <DropdownMenuLabel className="flex flex-col">
                         <span>{isLoadingProfile ? <Skeleton className="h-4 w-40"/> : profileUser?.name }</span>
                         <span className="text-xs font-normal text-muted-foreground">{profileUser?.email}</span>
@@ -47,47 +52,58 @@ const AccountMenu = () => {
 
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuItem className="cursor-pointer">
-                        <NavLink to="/" className="flex items-center">
-                            <ChartNoAxesCombined className="mr-2 h-4 w-4" />
-                            Dashboard
-                        </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                        <NavLink to="/players" className="flex items-center">
-                            <Dices  className="mr-2 h-4 w-4"/>
-                            Jogadores
-                        </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                        <NavLink to="/users" className="flex items-center">
-                            <Users  className="mr-2 h-4 w-4"/>
-                            Usuários
-                        </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                        <NavLink to="/trafego" className="flex items-center">
-                            <Rocket  className="mr-2 h-4 w-4"/>
-                            Tráfego
-                        </NavLink>
-                    </DropdownMenuItem>
+                    {/* Se o usuário pode ver todos os itens */}
+                    {canViewAllItems && (
+                        <>
+                            <DropdownMenuItem className="cursor-pointer">
+                                <NavLink to="/" className="flex items-center">
+                                    <ChartNoAxesCombined className="mr-2 h-4 w-4" />
+                                    Dashboard
+                                </NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
+                                <NavLink to="/players" className="flex items-center">
+                                    <Dices className="mr-2 h-4 w-4"/>
+                                    Jogadores
+                                </NavLink>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
+                                <NavLink to="/users" className="flex items-center">
+                                    <Users className="mr-2 h-4 w-4"/>
+                                    Usuários
+                                </NavLink>
+                            </DropdownMenuItem>
+                        </>
+                    )}
+
+                    {/* Se o usuário só pode ver o item "Tráfego" */}
+                    {canViewOnlyTrafego && (
+                        <DropdownMenuItem className="cursor-pointer">
+                            <NavLink to="/trafego" className="flex items-center">
+                                <Rocket className="mr-2 h-4 w-4"/>
+                                Tráfego
+                            </NavLink>
+                        </DropdownMenuItem>
+                    )}
+
+                    {/* Perfil e Logout sempre visíveis */}
                     <DialogTrigger asChild>
                         <DropdownMenuItem className="cursor-pointer">
                             <UserRoundPen className="mr-2 h-4 w-4"/>
                             <span>Meu perfil</span>
                         </DropdownMenuItem>
                     </DialogTrigger>
+
                     <DropdownMenuItem className="text-rose-500 dark:text-rose-400 cursor-pointer" onClick={handleLogout}>
                         <LogOut className="mr-2 h-4 w-4"/>
                         <span>Sair</span>
                     </DropdownMenuItem>
-                    
                 </DropdownMenuContent>
             </DropdownMenu>
 
             <UserProfileDialog />
         </Dialog>
-     );
+    );
 }
- 
+
 export default AccountMenu;
