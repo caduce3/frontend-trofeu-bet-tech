@@ -17,9 +17,11 @@ interface TrafegoTableFiltersProps {
     setDateRange: React.Dispatch<React.SetStateAction<{ from: Date; to: Date }>>;
     utmCampaign: string;
     setUtmCampaign: React.Dispatch<React.SetStateAction<string>>;
+    utmContent: string;
+    setUtmContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, setDateRange, utmCampaign, setUtmCampaign }) => {
+const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, setDateRange, utmCampaign, setUtmCampaign, utmContent, setUtmContent }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -56,6 +58,16 @@ const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, se
                             className="rounded-xl" 
                             value={utmCampaign} 
                             onChange={(e) => setUtmCampaign(e.target.value)}
+                        />
+                    </div>
+
+                    <div>
+                        <p className="mb-2 mt-4 text-sm">UTM Content</p>
+                        <Input 
+                            placeholder="UTM Content" 
+                            className="rounded-xl" 
+                            value={utmContent} 
+                            onChange={(e) => setUtmContent(e.target.value)}
                         />
                     </div>
 
