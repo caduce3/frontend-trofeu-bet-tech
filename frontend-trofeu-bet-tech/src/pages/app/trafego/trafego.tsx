@@ -39,14 +39,14 @@ export function RelatorioTrafego() {
     const dataInicial = format(dateRange.from, "dd-MM-yyyy HH:mm");
     const dataFinal = format(dateRange.to, "dd-MM-yyyy HH:mm");
 
-    console.log(dataInicial, dataFinal);
+    const [utmCampaign, setUtmCampaign] = React.useState<string>('');
 
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;
 
     const { data, isLoading } = useQuery({
-        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal],
-        queryFn: () => getRelatorioFtds({ page: Number(page), dataInicial, dataFinal }),
+        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal, utmCampaign],
+        queryFn: () => getRelatorioFtds({ page: Number(page), dataInicial, dataFinal, utm_campaign: utmCampaign }),
     });
 
     function handlePaginate(page: number) {
@@ -61,7 +61,7 @@ export function RelatorioTrafego() {
             <Helmet title="Tráfego" />
             <div className="flex flex-row gap-4 items-center">
                 <h1 className="text-3xl font-bold tracking-tight">Relatório FTD</h1>
-                <TrafegoTableFilters dateRange={dateRange} setDateRange={setDateRange} /> {/* Passando props */}
+                <TrafegoTableFilters dateRange={dateRange} setDateRange={setDateRange} utmCampaign={utmCampaign} setUtmCampaign={setUtmCampaign} />
             </div>
             
             {isLoading ? <TrafegoTableSkeleton />

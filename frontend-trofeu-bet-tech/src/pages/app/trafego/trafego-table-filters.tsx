@@ -10,13 +10,16 @@ import {
 } from "@/components/ui/dialog";
 import * as React from "react";
 import { DatePickerWithRange } from "@/components/date-ranger-picker";
+import { Input } from "@/components/ui/input";
 
 interface TrafegoTableFiltersProps {
     dateRange: { from: Date; to: Date };
     setDateRange: React.Dispatch<React.SetStateAction<{ from: Date; to: Date }>>;
+    utmCampaign: string;
+    setUtmCampaign: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, setDateRange }) => {
+const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, setDateRange, utmCampaign, setUtmCampaign }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -32,6 +35,7 @@ const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, se
                     <DialogTitle>Filtros</DialogTitle>
                 </DialogHeader>
                 <div className="pt-1 pb-1 pr-0.5">
+                    <p className="mb-2 text-sm">Data</p>
                     <DatePickerWithRange
                         className="w-full"
                         value={{ from: dateRange.from, to: dateRange.to }}
@@ -44,6 +48,17 @@ const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, se
                             }
                         }}
                     />
+
+                    <div>
+                        <p className="mb-2 mt-4 text-sm">UTM Campaign</p>
+                        <Input 
+                            placeholder="UTM Campaign" 
+                            className="rounded-xl" 
+                            value={utmCampaign} 
+                            onChange={(e) => setUtmCampaign(e.target.value)}
+                        />
+                    </div>
+
                 </div>
             </DialogContent>
         </Dialog>
