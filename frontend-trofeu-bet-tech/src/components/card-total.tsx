@@ -25,11 +25,11 @@ export function CardTotalGeral({
 
   return (
     <Card className="w-full max-w-sm mx-auto p-4 sm:max-w-md md:max-w-lg lg:max-w-xl rounded-xl">
-      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0 pb-2">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-base font-semibold">
           {isLoading ? <Skeleton className="h-4 w-40"/> : cardTitle}
         </CardTitle>
-        <Icon className="h-5 w-5 text-muted-foreground mt-2 sm:mt-0"/>
+        <Icon className="h-5 w-5 text-muted-foreground ml-2"/>
       </CardHeader>
       <CardContent className="space-y-1">
         <span className="text-2xl font-bold tracking-tight block">{isLoading ? <Skeleton className="h-4 w-40"/> : displayValue}</span>
