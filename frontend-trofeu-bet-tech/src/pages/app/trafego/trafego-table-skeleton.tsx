@@ -6,7 +6,7 @@ export function TrafegoTableSkeleton() {
         <Table className="border rounded-md">
             <TableHeader>
                 <TableRow>
-                    <TableHead>ID Registro</TableHead>
+                    <TableHead>UTM Source</TableHead>
                     <TableHead>UTM Campaign</TableHead>
                     <TableHead>Registros</TableHead>
                     <TableHead className="hidden lg:table-cell">FTDs</TableHead>

@@ -37,7 +37,10 @@ const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, se
                         value={{ from: dateRange.from, to: dateRange.to }}
                         onChange={(range) => {
                             if (range?.from && range?.to) {
-                                setDateRange({ from: range.from, to: range.to });
+                                setDateRange({ 
+                                    from: new Date(range.from.getFullYear(), range.from.getMonth(), range.from.getDate(), 0, 0), // 00:00
+                                    to: new Date(range.to.getFullYear(), range.to.getMonth(), range.to.getDate(), 23, 59) // 23:59
+                                });
                             }
                         }}
                     />

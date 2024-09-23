@@ -32,12 +32,14 @@ export function RelatorioTrafego() {
     }, [token, navigate]); 
 
     const [dateRange, setDateRange] = React.useState<{ from: Date; to: Date }>({
-        from: new Date(2024, 6, 1),
-        to: new Date(2024, 6, 31),
+        from: new Date(2024, 6, 1, 0, 0),
+        to: new Date(2024, 6, 31, 23, 59)
     });
     
-    const dataInicial = format(dateRange.from, "dd-MM-yyyy");
-    const dataFinal = format(dateRange.to, "dd-MM-yyyy");
+    const dataInicial = format(dateRange.from, "dd-MM-yyyy HH:mm");
+    const dataFinal = format(dateRange.to, "dd-MM-yyyy HH:mm");
+
+    console.log(dataInicial, dataFinal);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;
@@ -67,7 +69,7 @@ export function RelatorioTrafego() {
             <Table className="bg-[#18181B] rounded-xl">
                 <TableHeader>
                     <TableRow>
-                        <TableHead>ID Registro</TableHead>
+                        <TableHead>UTM Source</TableHead>
                         <TableHead>UTM Campaign</TableHead>
                         <TableHead className="hidden md:table-cell">Registros</TableHead>
                         <TableHead className="hidden sm:table-cell">FTDs</TableHead>
