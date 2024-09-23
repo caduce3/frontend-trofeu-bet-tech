@@ -41,13 +41,14 @@ export function RelatorioTrafego() {
 
     const [utmCampaign, setUtmCampaign] = React.useState<string>('');
     const [utmContent, setUtmContent] = React.useState<string>('');
+    const [utmSource, setUtmSource] = React.useState<string>('');
 
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;
 
     const { data, isLoading } = useQuery({
-        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal, utmCampaign, utmContent],
-        queryFn: () => getRelatorioFtds({ page: Number(page), dataInicial, dataFinal, utm_campaign: utmCampaign, utm_content: utmContent }),
+        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal, utmCampaign, utmContent, utmSource],
+        queryFn: () => getRelatorioFtds({ page: Number(page), dataInicial, dataFinal, utm_campaign: utmCampaign, utm_content: utmContent, utm_source: utmSource }),
     });
 
     function handlePaginate(page: number) {
@@ -69,6 +70,8 @@ export function RelatorioTrafego() {
                     setUtmCampaign={setUtmCampaign} 
                     utmContent={utmContent}
                     setUtmContent={setUtmContent}
+                    utmSource={utmSource}
+                    setUtmSource={setUtmSource}
                  />
             </div>
             

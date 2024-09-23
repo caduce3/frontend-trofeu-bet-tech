@@ -19,9 +19,16 @@ interface TrafegoTableFiltersProps {
     setUtmCampaign: React.Dispatch<React.SetStateAction<string>>;
     utmContent: string;
     setUtmContent: React.Dispatch<React.SetStateAction<string>>;
+    utmSource: string;
+    setUtmSource: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, setDateRange, utmCampaign, setUtmCampaign, utmContent, setUtmContent }) => {
+const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ 
+        dateRange, setDateRange, 
+        utmCampaign, setUtmCampaign, 
+        utmContent, setUtmContent,
+        utmSource, setUtmSource
+    }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -37,7 +44,7 @@ const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, se
                     <DialogTitle>Filtros</DialogTitle>
                 </DialogHeader>
                 <div className="pt-1 pb-1 pr-0.5">
-                    <p className="mb-2 text-sm">Data</p>
+                    <p className="mb-2 text-sm font-bold">Data</p>
                     <DatePickerWithRange
                         className="w-full"
                         value={{ from: dateRange.from, to: dateRange.to }}
@@ -52,22 +59,32 @@ const TrafegoTableFilters: React.FC<TrafegoTableFiltersProps> = ({ dateRange, se
                     />
 
                     <div>
-                        <p className="mb-2 mt-4 text-sm">UTM Campaign</p>
+                        <p className="mb-2 mt-4 text-sm font-bold">UTM Campaign</p>
                         <Input 
                             placeholder="UTM Campaign" 
-                            className="rounded-xl" 
+                            className="rounded-xl font-thin" 
                             value={utmCampaign} 
                             onChange={(e) => setUtmCampaign(e.target.value)}
                         />
                     </div>
 
                     <div>
-                        <p className="mb-2 mt-4 text-sm">UTM Content</p>
+                        <p className="mb-2 mt-4 text-sm font-bold">UTM Content</p>
                         <Input 
                             placeholder="UTM Content" 
-                            className="rounded-xl" 
+                            className="rounded-xl font-thin" 
                             value={utmContent} 
                             onChange={(e) => setUtmContent(e.target.value)}
+                        />
+                    </div>
+
+                    <div>
+                        <p className="mb-2 mt-4 text-sm font-bold">UTM Source</p>
+                        <Input 
+                            placeholder="UTM Source" 
+                            className="rounded-xl font-thin" 
+                            value={utmSource} 
+                            onChange={(e) => setUtmSource(e.target.value)}
                         />
                     </div>
 

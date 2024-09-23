@@ -6,6 +6,7 @@ export interface GetRelatorioFtdsBody {
     dataFinal: string;
     utm_campaign: string;
     utm_content: string;
+    utm_source: string;
 }
 
 export interface GetRelatorioFtdsResponse {
@@ -23,7 +24,7 @@ export interface GetRelatorioFtdsResponse {
     }[] | null;
 }
 
-export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campaign, utm_content }: GetRelatorioFtdsBody): Promise<GetRelatorioFtdsResponse> {
+export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campaign, utm_content, utm_source }: GetRelatorioFtdsBody): Promise<GetRelatorioFtdsResponse> {
     try {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('No token found');
@@ -38,7 +39,8 @@ export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campa
                 dataInicial,
                 dataFinal,
                 utm_campaign,
-                utm_content
+                utm_content,
+                utm_source
             })
         });
 
