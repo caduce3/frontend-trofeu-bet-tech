@@ -36,14 +36,14 @@ export function PlayersDetails() {
         },
         enabled: !!id // Executa a consulta somente se id estiver definido
     });
-    
+
     return (
         <>
-            <Helmet title="Players Details"/>
+            <Helmet title="Players Details" />
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-screen"> {/* Set height to full screen */}
-                <div className="md:col-span-8 bg-[#18181B] rounded-xl flex flex-col"> {/* Added flex and full height */}
-                    <Card className="flex-1 rounded-xl"> {/* Added flex-1 to make it take available space */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 min-h-screen"> {/* Define a altura mínima para a tela */}
+                <div className="md:col-span-8 bg-[#18181B] rounded-xl flex flex-col">
+                    <Card className="flex-1 rounded-xl">
                         <CardHeader>
                             <CardTitle>Informações gerais do jogador</CardTitle>
                             <CardDescription>Informações pessoais</CardDescription>
@@ -119,8 +119,9 @@ export function PlayersDetails() {
                         </CardContent>
                     </Card>
                 </div>
-                <div className="md:col-span-4 flex flex-col"> {/* Added flex and full height */}
-                    <div className="grid grid-cols-1 gap-4 flex-1"> {/* Added flex-1 to make it take available space */}
+
+                <div className="md:col-span-4 flex flex-col mt-4 md:mt-0"> {/* Margem superior apenas no mobile */}
+                    <div className="grid grid-cols-1 gap-4 flex-1">
                         <CardTotalGeral 
                             Icon={DollarSign} 
                             cardTitle="Valor total de depósitos" 
@@ -151,7 +152,8 @@ export function PlayersDetails() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-12 gap-4">
+            {/* Gráfico */}
+            <div className="grid grid-cols-12 gap-4 mt-6 md:mt-0"> {/* Espaçamento para o gráfico */}
                 <div className="col-span-12">
                     <ChartWithdrawlDepositMonthPlayer />
                 </div>
