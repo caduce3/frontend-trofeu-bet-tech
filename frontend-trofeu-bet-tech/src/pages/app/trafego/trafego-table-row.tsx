@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
+import { formatCurrency } from "@/services/formated-currency-brl";
 
 export interface RelatorioFtdTrafegoTableRowProps {
     relatorioFTDs: {
@@ -20,7 +21,7 @@ const RelatorioTrafegoFtdsTableRow = ({ relatorioFTDs }: RelatorioFtdTrafegoTabl
             <TableCell className="w-[500px]">{relatorioFTDs.utm_campaign === "" ? "Não informado" : relatorioFTDs.utm_campaign}</TableCell>
             <TableCell className="hidden md:table-cell">{relatorioFTDs.registros === null ? "Não informado" : relatorioFTDs.registros}</TableCell>
             <TableCell className="hidden sm:table-cell">{relatorioFTDs.ftds === null ? "Não informado" : relatorioFTDs.ftds}</TableCell>
-            <TableCell className="hidden md:table-cell">{relatorioFTDs.valor_ftd === null ? "Não informado" : relatorioFTDs.valor_ftd}</TableCell>
+            <TableCell className="hidden md:table-cell">{relatorioFTDs.valor_ftd === null ? "Não informado" : formatCurrency(relatorioFTDs.valor_ftd)}</TableCell>
             <TableCell className="" >{relatorioFTDs.utm_content === "" ? "Não informado" : relatorioFTDs.utm_content}</TableCell>
         </TableRow>
     );

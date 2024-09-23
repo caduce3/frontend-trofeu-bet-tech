@@ -92,6 +92,7 @@ export function RelatorioTrafego() {
                     cardTitle="Valor FTD" 
                     totalValue={data?.totalValorFtd ?? 0} 
                     Icon={Coins} 
+                    format={true}
                 />
             </div>
 
