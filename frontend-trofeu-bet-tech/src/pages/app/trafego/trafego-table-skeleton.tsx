@@ -6,6 +6,7 @@ export function TrafegoTableSkeleton() {
         <Table className="border rounded-md">
             <TableHeader>
                 <TableRow>
+                    <TableHead>ID Registro</TableHead>
                     <TableHead>UTM Campaign</TableHead>
                     <TableHead>Registros</TableHead>
                     <TableHead className="hidden lg:table-cell">FTDs</TableHead>
@@ -16,6 +17,9 @@ export function TrafegoTableSkeleton() {
             <TableBody>
                 {Array.from({ length: 10 }).map((_, index) => (
                     <TableRow key={index}>
+                        <TableCell>
+                            <Skeleton className="h-3 w-3" />
+                        </TableCell>
                         <TableCell>
                             <Skeleton className="h-3 w-3" />
                         </TableCell>

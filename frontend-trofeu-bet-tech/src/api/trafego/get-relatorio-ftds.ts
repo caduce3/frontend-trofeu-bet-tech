@@ -11,7 +11,7 @@ export interface GetRelatorioFtdsResponse {
     totalPages: number;
     currentPage: number;
     relatorioFtds: {
-        id: number;
+        id_registro: number;
         ftds: number;
         registros: number;
         valor_ftd: number | null;

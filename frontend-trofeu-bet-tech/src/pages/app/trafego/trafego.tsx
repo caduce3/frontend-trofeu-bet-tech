@@ -55,10 +55,11 @@ export function RelatorioTrafego() {
             {
                 isLoading ? <TrafegoTableSkeleton />
                 :
-                <Table className=" bg-[#18181B] rounded-xl ">
+                <Table className=" bg-[#18181B] rounded-xl">
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[600px]">Utm campaign</TableHead>
+                            <TableHead>ID Registro</TableHead>
+                            <TableHead className="">UTM Campaign</TableHead>
                             <TableHead className="hidden md:table-cell">Registros</TableHead>
                             <TableHead className="hidden sm:table-cell">FTDs</TableHead>
                             <TableHead className="hidden md:table-cell">Valor FTD</TableHead>
@@ -67,7 +68,7 @@ export function RelatorioTrafego() {
                     </TableHeader>
                     <TableBody>
                         {data && data.relatorioFtds?.map(relatorio => {
-                            return <RelatorioTrafegoFtdsTableRow key={relatorio.id} relatorioFTDs={relatorio} />
+                            return <RelatorioTrafegoFtdsTableRow key={relatorio.id_registro} relatorioFTDs={relatorio} />
                         })}
                     </TableBody>
                 </Table>
