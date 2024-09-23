@@ -10,6 +10,9 @@ export interface GetRelatorioFtdsBody {
 }
 
 export interface GetRelatorioFtdsResponse {
+    totalRegistros: number;
+    totalFtds: number;
+    totalValorFtd: number;
     totalItens: number;
     totalPages: number;
     currentPage: number;

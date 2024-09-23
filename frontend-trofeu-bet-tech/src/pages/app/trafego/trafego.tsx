@@ -19,6 +19,8 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import * as React from "react";
 import TrafegoTableFilters from "./trafego-table-filters";
+import { CardTotalGeral } from "@/components/card-total";
+import { ArrowDownUp, Coins, HandCoins } from "lucide-react";
 
 export function RelatorioTrafego() {
     const token = useAuthRedirect();
@@ -74,6 +76,25 @@ export function RelatorioTrafego() {
                     setUtmSource={setUtmSource}
                  />
             </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+                <CardTotalGeral 
+                    cardTitle="Registros" 
+                    totalValue={data?.totalRegistros ?? 0} 
+                    Icon={ArrowDownUp}
+                />
+                <CardTotalGeral 
+                    cardTitle="FTDs" 
+                    totalValue={data?.totalFtds ?? 0} 
+                    Icon={HandCoins} 
+                />
+                <CardTotalGeral 
+                    cardTitle="Valor FTD" 
+                    totalValue={data?.totalValorFtd ?? 0} 
+                    Icon={Coins} 
+                />
+            </div>
+
             
             {isLoading ? <TrafegoTableSkeleton />
             :
@@ -85,7 +106,7 @@ export function RelatorioTrafego() {
                         <TableHead className="hidden md:table-cell">Registros</TableHead>
                         <TableHead className="hidden sm:table-cell">FTDs</TableHead>
                         <TableHead className="hidden md:table-cell">Valor FTD</TableHead>
-                        <TableHead className="hidden sm:table-cell">UTM Content</TableHead>
+                        <TableHead className="">UTM Content</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
