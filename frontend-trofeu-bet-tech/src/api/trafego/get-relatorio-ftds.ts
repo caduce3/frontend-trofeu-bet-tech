@@ -8,6 +8,7 @@ export interface GetRelatorioFtdsBody {
     utm_content: string;
     utm_source: string;
     sortDirection: "asc" | "desc";
+    sortField: "registros" | "valor_ftd" | "ftds";
 }
 
 export interface GetRelatorioFtdsResponse {
@@ -28,7 +29,7 @@ export interface GetRelatorioFtdsResponse {
     }[] | null;
 }
 
-export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campaign, utm_content, utm_source, sortDirection }: GetRelatorioFtdsBody): Promise<GetRelatorioFtdsResponse> {
+export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campaign, utm_content, utm_source, sortDirection, sortField }: GetRelatorioFtdsBody): Promise<GetRelatorioFtdsResponse> {
     try {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('No token found');
@@ -45,7 +46,8 @@ export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campa
                 utm_campaign,
                 utm_content,
                 utm_source,
-                sortDirection
+                sortDirection, 
+                sortField
             })
         });
 

@@ -46,12 +46,13 @@ export function RelatorioTrafego() {
     const [utmContent, setUtmContent] = React.useState<string>('');
     const [utmSource, setUtmSource] = React.useState<string>('');
     const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">("asc");
+    const [sortField, setSortField] = React.useState<"registros" | "valor_ftd" | "ftds">("registros");
 
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;
 
     const { data, isLoading } = useQuery({
-        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal, utmCampaign, utmContent, utmSource, sortDirection],
+        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal, utmCampaign, utmContent, utmSource, sortDirection, sortField],
         queryFn: () => getRelatorioFtds(
             { 
                 page: Number(page), 
@@ -60,7 +61,8 @@ export function RelatorioTrafego() {
                 utm_campaign: utmCampaign, 
                 utm_content: utmContent, 
                 utm_source: utmSource,
-                sortDirection 
+                sortDirection,
+                sortField
             }
         ),
     });
@@ -72,8 +74,9 @@ export function RelatorioTrafego() {
         });
     }
 
-    function toggleSortDirection() {
+    function toggleSortDirection(sortField: "registros" | "valor_ftd" | "ftds") {
         setSortDirection(prev => (prev === "asc" ? "desc" : "asc"));
+        setSortField(sortField);
     }
     
 
@@ -92,9 +95,6 @@ export function RelatorioTrafego() {
                     utmSource={utmSource}
                     setUtmSource={setUtmSource}
                  />
-                <Button variant="outline" size="sm" className="flex items-center bg-[#18181B] rounded-lg" onClick={toggleSortDirection}>
-                    <ChevronsUpDown className="h-4 w-4" />
-                </Button>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -124,9 +124,45 @@ export function RelatorioTrafego() {
                     <TableRow>
                         <TableHead>UTM Source</TableHead>
                         <TableHead>UTM Campaign</TableHead>
-                        <TableHead className="hidden md:table-cell">Registros</TableHead>
-                        <TableHead className="hidden sm:table-cell">FTDs</TableHead>
-                        <TableHead className="hidden md:table-cell">Valor FTD</TableHead>
+                        <TableHead className="hidden md:table-cell">
+                            <div className="flex items-center gap-2">
+                                Registros
+                                <Button 
+                                    variant="outline" 
+                                    size="lg" 
+                                    className="flex items-center bg-[#00000000] hover:bg-[#00000000] rounded-lg border-none p-1" 
+                                    onClick={() => toggleSortDirection("registros")}
+                                >
+                                    <ChevronsUpDown className="h-3 w-3" />
+                                </Button>
+                            </div>
+                        </TableHead>
+                        <TableHead className="hidden sm:table-cell">
+                            <div className="flex items-center gap-2">
+                                FTDs
+                                <Button 
+                                    variant="outline" 
+                                    size="lg" 
+                                    className="flex items-center bg-[#00000000] hover:bg-[#00000000] rounded-lg border-none p-1" 
+                                    onClick={() => toggleSortDirection("ftds")}
+                                >
+                                    <ChevronsUpDown className="h-3 w-3" />
+                                </Button>
+                            </div>
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell">
+                            <div className="flex items-center gap-2">
+                                Valor FTD
+                                <Button 
+                                    variant="outline" 
+                                    size="lg" 
+                                    className="flex items-center bg-[#00000000] hover:bg-[#00000000] rounded-lg border-none p-1" 
+                                    onClick={() => toggleSortDirection("valor_ftd")}
+                                >
+                                    <ChevronsUpDown className="h-3 w-3" />
+                                </Button>
+                            </div>
+                        </TableHead>
                         <TableHead className="">UTM Content</TableHead>
                     </TableRow>
                 </TableHeader>
