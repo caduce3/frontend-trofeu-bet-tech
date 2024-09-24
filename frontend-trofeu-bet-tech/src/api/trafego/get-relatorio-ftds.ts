@@ -7,6 +7,7 @@ export interface GetRelatorioFtdsBody {
     utm_campaign: string;
     utm_content: string;
     utm_source: string;
+    sortDirection: "asc" | "desc";
 }
 
 export interface GetRelatorioFtdsResponse {
@@ -27,7 +28,7 @@ export interface GetRelatorioFtdsResponse {
     }[] | null;
 }
 
-export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campaign, utm_content, utm_source }: GetRelatorioFtdsBody): Promise<GetRelatorioFtdsResponse> {
+export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campaign, utm_content, utm_source, sortDirection }: GetRelatorioFtdsBody): Promise<GetRelatorioFtdsResponse> {
     try {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('No token found');
@@ -43,7 +44,8 @@ export async function getRelatorioFtds({ page, dataInicial, dataFinal, utm_campa
                 dataFinal,
                 utm_campaign,
                 utm_content,
-                utm_source
+                utm_source,
+                sortDirection
             })
         });
 

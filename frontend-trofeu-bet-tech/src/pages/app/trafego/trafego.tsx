@@ -20,7 +20,8 @@ import { format } from "date-fns";
 import * as React from "react";
 import TrafegoTableFilters from "./trafego-table-filters";
 import { CardTotalGeral } from "@/components/card-total";
-import { ArrowDownUp, Coins, HandCoins } from "lucide-react";
+import { ArrowDownUp, ChevronsUpDown, Coins, HandCoins } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function RelatorioTrafego() {
     const token = useAuthRedirect();
@@ -44,13 +45,24 @@ export function RelatorioTrafego() {
     const [utmCampaign, setUtmCampaign] = React.useState<string>('');
     const [utmContent, setUtmContent] = React.useState<string>('');
     const [utmSource, setUtmSource] = React.useState<string>('');
+    const [sortDirection, setSortDirection] = React.useState<"asc" | "desc">("asc");
 
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ?? 1;
 
     const { data, isLoading } = useQuery({
-        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal, utmCampaign, utmContent, utmSource],
-        queryFn: () => getRelatorioFtds({ page: Number(page), dataInicial, dataFinal, utm_campaign: utmCampaign, utm_content: utmContent, utm_source: utmSource }),
+        queryKey: ['relatorio-ftds', page, dataInicial, dataFinal, utmCampaign, utmContent, utmSource, sortDirection],
+        queryFn: () => getRelatorioFtds(
+            { 
+                page: Number(page), 
+                dataInicial, 
+                dataFinal, 
+                utm_campaign: utmCampaign, 
+                utm_content: utmContent, 
+                utm_source: utmSource,
+                sortDirection 
+            }
+        ),
     });
 
     function handlePaginate(page: number) {
@@ -59,6 +71,11 @@ export function RelatorioTrafego() {
             return prev;
         });
     }
+
+    function toggleSortDirection() {
+        setSortDirection(prev => (prev === "asc" ? "desc" : "asc"));
+    }
+    
 
     return (
         <>
@@ -75,6 +92,9 @@ export function RelatorioTrafego() {
                     utmSource={utmSource}
                     setUtmSource={setUtmSource}
                  />
+                <Button variant="outline" size="sm" className="flex items-center bg-[#18181B] rounded-lg" onClick={toggleSortDirection}>
+                    <ChevronsUpDown className="h-4 w-4" />
+                </Button>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
