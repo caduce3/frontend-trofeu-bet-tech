@@ -41,11 +41,11 @@ export function GraficoTicketMedio() {
   const chartConfig: ChartConfig = {
     average: {
       label: "Ticket Médio",
-      color: "#EEDD00", 
+      color: "#2563EB", 
     },
     twentyPercentAverage: {
       label: "20% do Ticket Médio",
-      color: "#2563EB", 
+      color: "#EEDD00", 
     }
   };
 
