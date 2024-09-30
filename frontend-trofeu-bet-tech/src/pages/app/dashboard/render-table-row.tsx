@@ -7,12 +7,12 @@ export const renderTableRow = (mes: string, dadosMes: Array<{ depositAmount: num
         <TableCell className="border-r font-semibold">{mes}</TableCell>
         {dadosMes.map((item, index) => (
             <React.Fragment key={index}>
-                <TableCell className="">
+                <TableCell className={`text-green-500 font-mono text-sm ${item.depositAmount === 0 ? '' : 'border-r'}`}>
                     {item.depositAmount === 0 
                         ? '' 
                         : item.depositAmount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </TableCell>
-                <TableCell className="border-r">
+                <TableCell className={`text-red-500 font-mono text-sm ${item.depositWithdrawals === 0 ? '' : 'border-r'}`}>
                     {item.depositWithdrawals === 0 
                         ? '' 
                         : item.depositWithdrawals.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -20,4 +20,6 @@ export const renderTableRow = (mes: string, dadosMes: Array<{ depositAmount: num
             </React.Fragment>
         ))}
     </TableRow>
+
+
 );
