@@ -3,6 +3,7 @@ import {  GraficoLtv } from "./grafico-ltv-jogadores";
 import { useAuthRedirect } from "@/middlewares/authRedirect";
 import { GraficoLtvDepositos } from "./grafico-ltv-depositos";
 import { GraficoTicketMedio } from "./grafico-ticket-medio";
+import { TabelaLtvDepositos } from "./tabela-ltv-depositos";
 
 
 export function Dashboard(){
@@ -22,6 +23,7 @@ export function Dashboard(){
                     <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                 </div>
 
+
                 <div className="col-span-12">
                     <GraficoLtv />
                 </div>
@@ -30,6 +32,9 @@ export function Dashboard(){
                 </div>
                 <div className="col-span-12">
                     <GraficoTicketMedio />
+                </div>
+                <div className="col-span-12">
+                    <TabelaLtvDepositos />
                 </div>
             </div>
         </>

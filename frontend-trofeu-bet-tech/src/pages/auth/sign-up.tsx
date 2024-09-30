@@ -21,7 +21,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Link, useNavigate } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { registerUser } from "@/api/register-user"
-import logo from "../../assets/logoTrofeu.svg"
+// import logo from "../../assets/logoTrofeu.svg"
 
 // Define the schema for the sign-up form
 const signUpSchema = z.object({
@@ -77,12 +77,12 @@ export function SignUp() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 max-w-[450px] flex flex-col justify-center gap-6 ">
-        <div className="flex justify-center w-full sm:w-auto">
+        {/* <div className="flex justify-center w-full sm:w-auto">
             <img src={logo} alt="Trofeu.bet" className="h-10"/>
-        </div>
+        </div> */}
         <div className="max-w-[450px] flex flex-col justify-center gap-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">Criar conta</h1>
-            <p className="text-sm text-muted-foreground">Crie sua conta para ter acesso ao painel da trofeu.bet!</p>
+            <h1 className="text-3xl font-semibold tracking-tight"> BetStats</h1>
+            <p className="text-sm text-muted-foreground">Crie sua conta para ter acesso ao painel da BetStats!</p>
         </div>
         
         {/* Name Field */}
